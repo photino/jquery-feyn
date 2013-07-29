@@ -1,0 +1,24 @@
+
+a {
+  text-decoration: none;
+  outline: none;
+  color: #00F;
+}
+
+a:hover {
+  color: #FF8000;
+  background: transparent;
+}
+
+.center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.despam samp {
+  display: none;
+}
+

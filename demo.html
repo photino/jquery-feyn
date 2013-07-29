@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8"/>
+<title>jQuery.Feyn</title>
+<meta name="keywords" content="Feynman diagrams, jQuery, SVG"/>
+<meta name="description" content="An extension package allows you to draw Feynman diagrams with SVG using the standard jQuery syntax."/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0.25,user-scalable=yes"/>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.feyn.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#aurora').feyn({
+      width: 200,
+      height: 200,
+      standalone: true,
+      selector: false,
+      grid: {show: false},
+      color: 'black',
+      thickness: 1.6,
+      incoming: {i1: '20,180', i2: '180,180'},
+      outgoing: {o1: '20,20', o2: '180,20'},
+      vertex: {v1: '100,140', v2: '100,60', v3: '46,33', v4: '154,33'},
+      auxiliary: {a: '10,115'},
+      fermion: {color: 'blue', line: 'i1-v1-i2, o2-v4-v2-v3-o1'},
+      photon: {color: 'orange', line: 'v1-v2'},
+      gluon: {color: 'green', line: 'v3-v4'},
+      symbol: {s1: ['a', -90, ['arrow', 0], 25]},
+      node: {show: 'v', type: 'dot', fill: 'black', radius: 1},
+      label: {t1: ['10,194', 'e^{&#8722;}'], t2: ['190,194', 'e^+'],
+        t3: ['10,12', 'q'], t4: ['190,12', '-q'], t5: ['85,105', '&#947;'],
+        t6: ['100,10', 'g']},
+      image: {m1: ['120,85', 'svg/muon.svg', 59, 29]},
+      ajax: false
+    });
+    $('#nightly').feyn({
+      width: 200,
+      height: 200,
+      standalone: true,
+      selector: true,
+      grid: {show: true},
+      color: 'black',
+      thickness: 1.6,
+      incoming: {i1: '20,180', i2: '180,180'},
+      outgoing: {o1: '20,20', o2: '180,20'},
+      vertex: {v1: '100,140', v2: '100,60', v3: '46,33', v4: '154,33'},
+      auxiliary: {a: '10,115'},
+      fermion: {color: 'blue', line: 'i1-v1-i2, o2-v4-v2-v3-o1'},
+      photon: {color: 'orange', line: 'v1-v2'},
+      gluon: {color: 'green', line: 'v3-v4'},
+      symbol: {s1: ['a', -90, ['arrow', 0], 25]},
+      node: {show: 'v', type: 'dot', fill: 'black', radius: 1},
+      label: {t1: ['10,194', 'e^{&#8722;}'], t2: ['190,194', 'e^+'],
+        t3: ['10,12', 'q'], t4: ['190,12', '-q'], t5: ['85,105', '&#947;'],
+        t6: ['100,10', 'g']},
+      image: {m1: ['120,85', 'svg/muon.svg', 59, 29]}
+    });
+    $('.feyn').css('cursor', 'crosshair').click(function(e) {
+      var offset = $(this).offset(),
+        x = Math.round(e.pageX - offset.left),
+        y = Math.round(e.pageY - offset.top);
+      $('svg .feyn_coord').remove();
+      $(this).children('svg').append('<text class="feyn_coord" x="' + x
+        + '" y="' + y + '" font-size="8">' + x  + ',' + y + '</text>');
+      $(this).html($(this).html());
+      return false;
+    });
+    $('footer a').click(function() {
+      window.open(this.href); 
+      return false;
+    });
+  });
+</script>
+</head>
+
+<body>
+
+<header>
+  <h2>jQuery.Feyn: Drawing Feynman Diagrams with SVG</h2>
+</header>
+
+<article style="margin:2em 0;">
+  <div id="aurora"><!-- Insert Feynman diagram here --></div>
+  <div id="nightly"><!-- Insert Feynman diagram here --></div>
+</article>
+
+<footer>
+<div>
+  <a href="http://photino.github.io/jquery-feyn/">Project Page</a> | 
+  <a href="http://commons.oreilly.com/wiki/index.php/SVG_Essentials">SVG Essentials</a> | 
+  <a href="http://unicodelookup.com/">Unicode Lookup</a> | 
+  <a href="http://www.tlhiv.org/ltxpreview/">LaTeX Previewer</a> | 
+  <a href="http://validator.w3.org/">W3C Validator</a> | 
+  <a href="http://image.online-convert.com/">Image Converter</a>
+</div>
+<address style="margin:1em 0;">
+  Copyright &copy; 2013 by
+  <a href="https://github.com/photino">Zan Pan</a> released under the
+  <a href="LICENSE">MIT license</a>
+</address>
+</footer>
+
+</body>

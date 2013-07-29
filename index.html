@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html id="index" lang="en-us">
+
+<head>
+<meta charset="utf-8"/>
+<title>jQuery.Feyn</title>
+<meta name="keywords" content="Feynman diagrams, jQuery, SVG"/>
+<meta name="description" content="An extension package allows you to draw Feynman diagrams with SVG using the standard jQuery syntax."/>
+<link rel="stylesheet" media="all" href="css/normalize.css"/>
+<link rel="stylesheet" media="all" href="css/default.css"/>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.feyn.js"></script>
+<script src="js/jdom.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#diagram1').feyn({
+      color: 'olive',
+      incoming: {i1: '20,180', i2: '180,180'},
+      outgoing: {o1: '20,20', o2: '180,20'},
+      vertex: {v1: '100,140', v2: '100,60', v3: '46,33', v4: '154,33'},
+      fermion: {color: 'blue', line: 'i1-v1-i2, o2-v4-v2-v3-o1'},
+      photon: {color: 'orange', line: 'v1-v2'},
+      gluon: {color: 'green', line: 'v3-v4'},
+      symbol: {s1: ['10,115', -90, ['arrow', 0], 25]},
+      node: {color: 'maroon', show: 'v', type: 'dot', radius: 2},
+      label: {color: 'magenta', t1: ['10,194', 'e^{&#8722;}'], t2: ['190,194', 'e^+'],
+        t3: ['10,12', 'q'], t4: ['190,12', '-q'], t5: ['85,105', '&#947;'],
+        t6: ['100,10', 'g']},
+      image: {m1: ['120,85', 'svg/muon.svg', 59, 29]}
+    });
+    $('#diagram2').feyn({
+      ratio: 0.8,
+      incoming: {i1: '7,55', i2: '7,155'},
+      outgoing: {o1: '193,55', o2: '193,155'},
+      vertex: {v1: '52.5,55', v2: '147.5,55', v3: '52.5,155', v4: '147.5,155'},
+      photon: {color: 'orange'},
+      gluon: {color: 'green', line: 'i1-v1, v2-o1, i2-v3, v4-o2', loop: 'v1-v2'},
+      ghost: {color: 'purple', loop: 'v3-v4', offset: 1}
+    });
+    $('#diagram3').feyn({
+      color: 'olive',
+      tension: 1,
+      incoming: {i1: '30,75', i2: '30,150'},
+      outgoing: {o1: '170,75', o2: '170,150'},
+      vertex: {v1: '100,75', v2: '55,150', v3: '85,150', v4: '115,150', v5: '145,150'},
+      auxiliary: {a1: '100,25', a2: '85,120', a3: '115,180'},
+      fermion: {color: 'blue', arrow: false, line: 'i1-o1, i2-o2'},
+      scalar: {color: 'teal', arc: 'v2-v4, v5-v3'},
+      symbol: {s1: ['v1', -90, ['bubble', 20], 50]},
+      node: {color: 'maroon', show: 'a', type: 'otimes', radius: 4},
+      label: {color: 'magenta', t1: ['18,80', 'i1'], t2: ['18,155', 'i2'],
+        t3: ['185,80', 'o1'], t4: ['185,155', 'o2'], t5: ['100,90', 'v1'],
+        t6: ['55,165', 'v2'], t7: ['85,145', 'v3'], t8: ['115,165', 'v4'],
+        t9: ['145,145', 'v5'], t10: ['100,15', 'a1'], t11: ['85,110', 'a2'],
+        t12: ['115,200', 'a3']}
+    });
+  });
+</script>
+<style type="text/css">
+  #gallery {
+    margin: 2em auto;
+    text-align: center;
+  }
+  [id*="diagram"] {
+    display: inline-block;
+    margin: 0 0.5em;
+    border: solid 1px silver;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+<div id="index_header">
+<h2>jQuery.Feyn: <span>Drawing Feynman Diagrams with SVG</span></h2>
+</div>
+</header>
+
+<nav>
+<div id="index_nav">
+  <a href="index.html">Home</a>
+  <a href="download.html">Download</a>
+  <a href="guide.html">Documentation</a>
+  <a href="examples.html">Examples</a>
+</div>
+</nav>
+
+<article>
+<section id="gallery">
+  <div id="diagram1"><!-- Insert Feynman diagram here --></div>
+  <div id="diagram2"><!-- Insert Feynman diagram here --></div>
+  <div id="diagram3"><!-- Insert Feynman diagram here --></div>
+</section>
+<section>
+<h3>Introduction</h3>
+<p> 
+  jQuery.Feyn is a <a href="http://jquery.com/">jQuery</a> plugin to
+  facilitate your drawing Feynman diagrams with Scalable Vector Graphics (SVG).
+  The following list gives a quick overview of the most prominent features:
+</p>
+<ul>
+  <li>Automatic generation of clean SVG source code</li>
+  <li>Easy to use, easy to make fine adjustments</li>
+  <li>Pre-defined propagator styles, vertex types, and symbols</li>
+  <li>Support for typesetting labels and including external graphics</li>
+  <li>Lightweight, cross-browser, and fully documented</li>
+</ul>
+<p>
+  I have tried my best to embrace the tagline of jQuery: <em>write less, do more</em>.
+  You can view the source code on 
+  <a href="http://github.com/photino/jquery-feyn">GitHub</a>
+  or directly in your <a href="js/jquery.feyn-0.1.0.js">browser</a>.
+  jQuery.Feyn is released under the <a href="LICENSE">MIT license</a>.
+  By the way, I initiated this project so as to replace the PNG format
+  <a href="http://commons.wikimedia.org/wiki/Category:Feynman_diagrams">Feynman diagrams</a>
+  in Wikimedia Commons.
+</p>
+</section>
+<section>
+<h3>Getting Started</h3>
+<p>
+  You can start your tour from jQuery.Feyn's <a href="demo.html">online demo</a>
+  and view its source by pressing <code>Ctrl+U</code>. Settings for Feynman diagrams
+  are in the form of JavaScript's liberal object notation, whose simplicity
+  and extensibility has already made it possible for jQuery.Feyn to be lightweight
+  and powerful. I hope that you will enjoy this feature if it is still new to you.
+  Knowledge on jQuery is not necessary to use jQuery.Feyn, but getting a feel of
+  JavaScript syntax will make your world more wonderful. More importantly,
+  you should be familiar with SVG markup language.
+</p>
+</section>
+<section>
+<h3>Supported Browsers</h3>
+<p>
+  Any modern browsers for desktop or mobile with a basic support of HTML5 and SVG 1.1
+  in the standards mode should be OK to run jQuery.Feyn. However, we do not guarantee
+  that all of them will display the same SVG exactly on your screen due to their
+  differences in SVG rendering. Also note that mobile browsers often show a lot of
+  quirks that is hard to work around because of their limitations and different
+  UI assumptions. The following provides an incomplete list of supported browsers:
+</p>
+<ul>
+  <li>Firefox 4+</li>
+  <li>Chrome 7+</li>
+  <li>Opera 11.6+</li>
+  <li>Safari 5.1+</li>
+  <li>IE 9+</li>
+</ul>
+<p>
+  A more detailed compatibility table for support of inline SVG in HTML5 can be found
+  at <a href="http://caniuse.com/svg-html5">caniuse.com/svg-html5</a>. Personaly,
+  I recommend Firefox 24+ and Chrome 28+, on which my testing will be conducted continually.
+</p>
+</section>
+<section>
+<h3>Bug Reports and Feedback</h3>
+<p>
+  The preferred way to report bugs is to use the
+  <a href="http://photino.github.io/jquery-feyn/issues">GitHub issue tracker</a>.
+  Before reporting a bug, please ensure that you have tested the bug on Firefox 24+
+  and Chrome 28+. Technical comments and requests for adding more features are also welcome.
+  Please e-mail me at <em><span class="despam">panzan89<samp>.phys</samp>@gmail.com</span></em>.
+</p>
+</section>
+<section>
+<h3>About the Author</h3>
+<p>
+  I am currently a graduate student in the 
+  <a href="http://english.itp.cas.cn/">Institute of Theoretical Physics</a> 
+  at Chinese Academy of Sciences, with the research emphasis on particle theory.
+  You can contact me at 
+  <em><span class="despam">panzan<samp>.phys</samp>@itp.ac.cn</span></em>.
+</p>
+</section>
+</article>
+
+<footer>
+<div id="index_footer">
+<address>
+  Copyright &copy; 2013 by
+  <a href="https://github.com/photino">Zan Pan</a> under the
+  <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 License</a>
+</address>
+</div>
+</footer>
+
+</body>
+
