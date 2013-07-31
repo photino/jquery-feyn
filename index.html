@@ -8,7 +8,7 @@
 <meta name="description" content="An extension package allows you to draw Feynman diagrams with SVG using the standard jQuery syntax."/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0.25,user-scalable=yes"/>
 <script src="js/jquery-2.0.2.min.js"></script>
-<script src="js/jquery.feyn-0.1.0.js"></script>
+<script src="js/jquery.feyn-0.1.0.min.js"></script>
 <script>
   $(document).ready(function() {
     $('#aurora').feyn({
@@ -22,16 +22,16 @@
       incoming: {i1: '20,180', i2: '180,180'},
       outgoing: {o1: '20,20', o2: '180,20'},
       vertex: {v1: '100,140', v2: '100,60', v3: '46,33', v4: '154,33'},
-      auxiliary: {a: '10,115'},
+      auxiliary: {a1: '10,114'},
       fermion: {color: 'blue', line: 'i1-v1-i2, o2-v4-v2-v3-o1'},
       photon: {color: 'orange', line: 'v1-v2'},
       gluon: {color: 'green', line: 'v3-v4'},
-      symbol: {s1: ['a', -90, ['arrow', 0], 25]},
+      symbol: {s1: ['a1', -90, ['arrow', 0], 25]},
       node: {show: 'v', type: 'dot', fill: 'black', radius: 1},
       label: {t1: ['10,194', 'e^{&#8722;}'], t2: ['190,194', 'e^+'],
-        t3: ['10,12', 'q'], t4: ['190,12', '-q'], t5: ['85,105', '&#947;'],
+        t3: ['10,12', 'q'], t4: ['190,12', '-q'], t5: ['85,102', '&#947;'],
         t6: ['100,10', 'g']},
-      image: {m1: ['120,85', 'svg/muon.svg', 59, 29]},
+      image: {m1: ['120,80', 'svg/muon.svg', 65, 34]},
       ajax: false
     });
     $('#nightly').feyn({
@@ -45,16 +45,16 @@
       incoming: {i1: '20,180', i2: '180,180'},
       outgoing: {o1: '20,20', o2: '180,20'},
       vertex: {v1: '100,140', v2: '100,60', v3: '46,33', v4: '154,33'},
-      auxiliary: {a: '10,115'},
+      auxiliary: {a1: '10,114'},
       fermion: {color: 'blue', line: 'i1-v1-i2, o2-v4-v2-v3-o1'},
       photon: {color: 'orange', line: 'v1-v2'},
       gluon: {color: 'green', line: 'v3-v4'},
-      symbol: {s1: ['a', -90, ['arrow', 0], 25]},
+      symbol: {s1: ['a1', -90, ['arrow', 0], 25]},
       node: {show: 'v', type: 'dot', fill: 'black', radius: 1},
       label: {t1: ['10,194', 'e^{&#8722;}'], t2: ['190,194', 'e^+'],
-        t3: ['10,12', 'q'], t4: ['190,12', '-q'], t5: ['85,105', '&#947;'],
+        t3: ['10,12', 'q'], t4: ['190,12', '-q'], t5: ['85,102', '&#947;'],
         t6: ['100,10', 'g']},
-      image: {m1: ['120,85', 'svg/muon.svg', 59, 29]}
+      image: {m1: ['120,80', 'svg/muon.svg', 65, 34]}
     });
     $('.feyn').css('cursor', 'crosshair').click(function(e) {
       var offset = $(this).offset(),
@@ -97,7 +97,7 @@
 <address style="margin:1em 0;">
   Copyright &copy; 2013 by
   <a href="https://github.com/photino">Zan Pan</a> released under the
-  <a href="LICENSE">MIT license</a>
+  <a href="LICENSE.txt">MIT license</a>
 </address>
 </footer>
 

@@ -56,8 +56,8 @@ var Feyn = function(container, options) {
     grid: {show: false, unit: 20},
     color: 'black',
     thickness: 1.6,
-    tension: 1.6,
-    ratio: 0.6,
+    tension: 1,
+    ratio: 1,
     incoming: {},
     outgoing: {},
     vertex: {},
@@ -66,11 +66,11 @@ var Feyn = function(container, options) {
     photon: {clockwise: false, period: 5, amplitude: 5},
     scalar: {arrow: false, dash: '5 5', offset: 2},
     ghost: {arrow: true, thickness: 3, dotsep: 8, offset: 5},
-    gluon: {clockwise: false, width: 15, height: 15,
-      factor: 0.75, percent: 0.6, scale: 1.15},
-    node: {show: false, thickness: 1, radius: 3, type: 'dot', fill: 'white'},
+    gluon: {clockwise: false, width: 15, height: 15, factor: 0.75,
+      percent: 0.6, scale: 1.15},
     symbol: {},
-    label: {family: 'serif', size: '15', face: 'italic'},
+    node: {show: false, thickness: 1, radius: 3, type: 'dot', fill: 'white'},
+    label: {family: 'serif', size: 15, face: 'italic'},
     image: {},
     ajax: false
   }, options);
@@ -119,7 +119,7 @@ var Feyn = function(container, options) {
     fill: opts.label.fill || opts.label.color || all.color,
     family: opts.label.family, size: opts.label.size,
     weight: opts.label.weight, face: opts.label.face,
-    anchor: opts.label.anchor || 'middle'}, pos: opts.label};
+    align: opts.label.align || 'middle'}, pos: opts.label};
   for(key in lb.pos) {
     if(lb.sty[key]) {
       delete lb.pos[key];
@@ -135,7 +135,7 @@ var Feyn = function(container, options) {
       dash: 'stroke-dasharray', linecap: 'stroke-linecap',
       linejoin: 'stroke-linejoin', offset: 'stroke-dashoffset',
       family: 'font-family', size: 'font-size', face: 'font-style',
-      weight: 'font-weight', anchor: 'text-anchor'}};
+      weight: 'font-weight', align: 'text-anchor'}};
 
   // Create SVG element
   var svgElem = function(elem, attr, sty, child) {
@@ -224,7 +224,7 @@ var Feyn = function(container, options) {
 
   // Get path for photon and gluon arc
   var arcPath = function(par, tile, period, distance) {
-    var t = 0.25 * Math.max(opts[par].tension || opts.tension, 2) + 0.001,
+    var t = 0.25 * Math.max(opts[par].tension || opts.tension, 2),
       phi = Math.acos(-0.5 / t),
       theta = -2 * Math.asin(period / (t * distance)),
       segment = [],
@@ -309,7 +309,7 @@ var Feyn = function(container, options) {
          0, 1, 1, [a - 2 * c, b], 'A ' + a + ' ' + b, 0, 0, 1] :
        [[0,0], 'A ' + a + ' ' + b, 0, 0, 0, [a, -b], 'A ' + c + ' ' + d,
          0, 1, 0, [a - 2 * c, -b], 'A ' + a + ' ' + b, 0, 0, 0]);
-   a = (opts.gluon.clockwise ? a : (opts.gluon.scale + 0.01) * a);
+   a = (opts.gluon.clockwise ? a : opts.gluon.scale * a);
    var lift = a / Math.pow(distance, 0.6),
      tile = (opts.gluon.clockwise ?
        ['C', [kappa * a, lift], [a, b - kappa * b], [a, b],
@@ -410,34 +410,14 @@ var Feyn = function(container, options) {
     return elems.join('');
   };
 
-  // Set graph nodes
-  var setNode = function() {
-    var type = opts.node.type,
-      nsty = $.extend({}, all, {color: opts.node.color,
-        thickness: opts.node.thickness, fill: opts.node.fill}),
-      nr = opts.node.radius + nsty.thickness,
-      a = nr / Math.SQRT2,
-      cross = numStr('M ', -a, ',', -a, ' L ', a, ',', a,
-        ' M ', -a, ',', a, ' L ', a, ',', -a),
-      group = '';
-    for(var key in nd) {
-      if(opts.node.show.indexOf(key.charAt(0)) >= 0) {
-        var id = setId(key + '_' + type),
-          x = +nd[key][0],
-          y = +nd[key][1];
-        group += {dot: svgElem('circle', {cx: x, cy: y, r: nr}, id), otimes:
-          svgElem('g', {}, id, svgElem('circle', {cx: x, cy: y, r: nr}) +
-          svgElem('path', {d: cross, transform: setTrans(x, y, 0)}))}[type];
-      }
-    }
-    return group ? svgElem('g', setClass('node'), nsty, group) : '';
-  };
-
   // Set symbols
   var setSymbol = function() {
-    var nofill = {fill: 'none'},
-      t = all.thickness,
+    var style = $.extend({}, all, {color: opts.symbol.color,
+      thickness: opts.symbol.thickness, fill: 'none'}),
+      t = style.thickness,
       group = '';
+    delete opts.symbol.color;
+    delete opts.symbol.thickness;
     for(var key in opts.symbol) {
       var item = opts.symbol[key],
         coord = nd[item[0]] || item[0].replace(/\s/g, '').split(','),
@@ -454,22 +434,47 @@ var Feyn = function(container, options) {
         }
       } 
       group += {'zigzag': svgElem('polyline',
-          $.extend({points: pts.join(' ')}, trans), $.extend({}, nofill, id)),
+          $.extend({points: pts.join(' ')}, trans), $.extend({}, style, id)),
         arrow: svgElem('g', trans, id, svgElem('path',
           {d: (p > dis ? numStr('M 0,0 A ', p, ' ', p, ' 0 0 1 ', dis, ',0') :
-          numStr('M 0,0 L ', dis, ',0'))}, nofill) + svgElem('polygon',
+          numStr('M 0,0 L ', dis, ',0'))}, style) + svgElem('polygon',
             {points: numStr(dis, ',0 ', dis - 2 * t, ',', 2.5 * t, ' ',
             dis + 3 * t, ',0 ', dis - 2 * t, ',', -2.5 * t)},
-            {thickness: 0, fill: all.color})),
-        hadron: svgElem('g', trans, id, svgElem('path', {d: numStr('M 0,0 L ',
-          dis, ',0', ' M 0,', p, ' L ', dis, ',', p, ' M 0,', -p, ' L ', dis,
-          ',', -p)}, {}) + svgElem('polygon', {points: numStr(dis, ',', 2 * p,
-          ' ', dis + 3.5 * p, ',0 ', dis, ',', -2 * p)}, {fill: 'white'})),
+            {thickness: 0, fill: style.color})),
+        hadron: svgElem('g', trans, $.extend({}, style, id), svgElem('path',
+          {d: numStr('M 0,0 L ', dis, ',0', ' M 0,', p, ' L ', dis, ',', p,
+          ' M 0,', -p, ' L ', dis, ',', -p)}, {}) + svgElem('polygon',
+          {points: numStr(dis, ',', 2 * p, ' ', dis + 3.5 * p, ',0 ', dis,
+          ',', -2 * p)}, {fill: 'white'})),
         bubble: svgElem('path', $.extend({d: numStr('M 0,0 C ', p, ',', p,
           ' ', dis, ',', p, ' ', dis, ',0 S ', p, ',', -p, ' ', ' 0,0 Z')},
-          trans), $.extend({}, nofill, id))}[type];
+          trans), $.extend({}, style, id))}[type];
     }
     return group ? svgElem('g', setClass('symbol'), all, group) : '';
+  };
+
+  // Set graph nodes
+  var setNode = function() {
+    var show = (opts.node.show === true ? 'iova' : opts.node.show),
+      type = opts.node.type,
+      style = $.extend({}, all, {color: opts.node.color,
+        thickness: opts.node.thickness, fill: opts.node.fill}),
+      nr = opts.node.radius + style.thickness,
+      a = nr / Math.SQRT2,
+      cross = numStr('M ', -a, ',', -a, ' L ', a, ',', a,
+        ' M ', -a, ',', a, ' L ', a, ',', -a),
+      group = '';
+    for(var key in nd) {
+      if(show.indexOf(key.charAt(0)) >= 0) {
+        var id = setId(key + '_' + type),
+          x = +nd[key][0],
+          y = +nd[key][1];
+        group += {dot: svgElem('circle', {cx: x, cy: y, r: nr}, id), otimes:
+          svgElem('g', {}, id, svgElem('circle', {cx: x, cy: y, r: nr}) +
+          svgElem('path', {d: cross, transform: setTrans(x, y, 0)}))}[type];
+      }
+    }
+    return group ? svgElem('g', setClass('node'), style, group) : '';
   };
 
   // Format label string
@@ -572,7 +577,8 @@ var Feyn = function(container, options) {
     // Generate SVG source code
     var src = svgElem('svg', {xmlns: opts.xmlns, xlink: opts.xlink,
       version: opts.version, x: opts.x, y: opts.y,
-      width: opts.width, height: opts.height}, {id: Feyn.prefix},
+      width: opts.width, height: opts.height},
+      (opts.selector ? {id: Feyn.prefix} : {}),
       (opts.title ? svgElem('title', {}, {}, opts.title) : '') +
       (opts.description ? svgElem('desc', {}, {}, opts.description) : '') +
       (svg.defs.length ? svgElem('defs', {}, {}, svg.defs.join('')) : '') +
