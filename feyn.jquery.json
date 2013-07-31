@@ -2,7 +2,7 @@
 { "name": "feyn",
   "title": "jQuery.Feyn",
   "description": "jQuery plugin for drawing Feynman diagrams with SVG",
-  "keywords": ["Feynman diagrams", "SVG"],
+  "keywords": ["SVG", "plot", "diagrams"],
   "version": "0.1.1",
   "author": {
     "name": "Zan Pan",
