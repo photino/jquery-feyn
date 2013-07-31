@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" width="200" height="120">
+  <desc>One-loop electron self-energy diagram in QED</desc>
+  <g stroke="black" stroke-width="1.6" stroke-linecap="round">
+    <line x1="10" y1="90" x2="58.5" y2="90"/>
+    <line x1="58.5" y1="90" x2="141.5" y2="90"/>
+    <line x1="141.5" y1="90" x2="190" y2="90"/>
+    <g stroke-width="0" fill="black">
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(34.25,90)"/>
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(100,90)"/>
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(165.75,90)"/>
+    </g>
+  </g>
+  <g stroke="black" stroke-width="1.6" stroke-linecap="round" fill="none">
+    <path d="M 0,0 C -2.878,2.364 -4.602,3.581 -4.361,5.566 S -2.155,8.32 1.145,9.431 C 4.851,10.684 6.944,10.96 7.652,12.83 S 6.978,16.294 4.927,19.745 C 3.299,22.708 2.337,24.587 3.473,26.233 S 6.706,27.647 10.144,27.098 C 14.008,26.485 15.99,25.758 17.486,27.085 S 18.498,30.466 18.284,34.475 C 18.219,37.855 18.24,39.965 20.011,40.895 S 23.531,40.646 26.32,38.562 C 29.458,36.225 30.874,34.661 32.816,35.141 S 35.283,37.664 36.956,41.314 C 38.468,44.337 39.467,46.196 41.467,46.198 S 44.468,44.341 45.97,41.201 C 47.663,37.673 48.191,35.63 50.134,35.153 S 53.49,36.242 56.667,38.697 C 59.411,40.671 61.159,41.854 62.931,40.926 S 64.726,37.888 64.598,34.409 C 64.458,30.499 63.977,28.444 65.475,27.12 S 68.954,26.525 72.907,27.223 C 76.254,27.697 78.352,27.932 79.49,26.287 S 79.668,22.763 77.938,19.742 C 75.999,16.344 74.618,14.748 75.329,12.879 S 78.133,10.736 81.959,9.518 C 85.143,8.383 87.109,7.617 87.353,5.632 S 85.874,2.428 82.939,0.556" transform="translate(141.5,90) rotate(180)"/>
+  </g>
+  <g stroke="black" stroke-width="1.6">
+    <g transform="translate(91,35)">
+      <path d="M 0,0 A 24 24 0 0 1 16,0" stroke="black" stroke-width="1.6" fill="none"/>
+      <polygon points="16,0 12.8,4 20.8,0 12.8,-4" stroke-width="0" fill="black"/>
+    </g>
+  </g>
+  <g stroke="black" stroke-width="0" fill="black" font-family="serif" font-size="15" font-style="italic" text-anchor="middle">
+    <text x="35" y="105">
+      <tspan>p</tspan>
+    </text>
+    <text x="165" y="105">
+      <tspan>p</tspan>
+    </text>
+    <text x="100" y="108">
+      <tspan>k</tspan>
+    </text>
+    <text x="100" y="25">
+      <tspan>p&#8202;&#8722;&#8202;k</tspan>
+    </text>
+  </g>
+</svg>
+

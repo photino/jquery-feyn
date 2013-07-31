@@ -1,7 +1,7 @@
 
 @import "style.css";
 
-body, ul, ol, li, img, h2, h3 {
+body, ul, ol, li, dl, dt, dd, img, h2, h3 {
   margin: 0;
   padding: 0;
 }
@@ -21,12 +21,12 @@ body {
   margin: 1.2% auto;
   font-size: 10px;
   text-align: justify;
-  font-family: Georgia, Verdana, Arial, sans-serif;
+  font-family: Georgia, Arial, Verdana, sans-serif;
   color: black;
 }
 
 header {
-  min-height: 2.2em;
+  min-height: 2.4em;
   margin: 1.5em 0 1em;
   font-size: 150%;
 }
@@ -40,7 +40,7 @@ header h2 span {
 }
 
 nav {
-  min-height: 1.8em;
+  min-height: 2em;
   margin: 1em 0;
   font-size: 210%;
   text-align: center;
@@ -74,17 +74,18 @@ article h4 {
 }
 
 article ul {
+  margin: 0.5em 2em;
+  line-height: 140%;
   list-style: outside disc;
 }
 
-article li {
-  margin: 0.5em 2em;
+article dl {
+  margin: 0.5em 0;
   line-height: 140%;
 }
 
-article li span {
-  display: block;
-  margin-left: 2.8em;
+article dd {
+  margin: 0 0 0.5em 2em;
 }
 
 footer {
@@ -102,3 +103,7 @@ p {
   line-height: 140%;
 }
 
+figure {
+  margin: 1em auto 2em;
+  text-align: center;
+}

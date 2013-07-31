@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html id="manual" lang="en-us">
+
+<head>
+<meta charset="utf-8"/>
+<title>Documentation | jQuery.Feyn</title>
+<meta name="keywords" content="Feynman diagrams, jQuery, SVG"/>
+<meta name="description" content="Documentation on jQuery.Feyn"/>
+<link rel="stylesheet" media="all" href="css/normalize.css"/>
+<link rel="stylesheet" media="all" href="css/default.css"/>
+<script src="js/jquery.js"></script>
+<script src="js/jdom.js"></script>
+</head>
+
+<body>
+
+<header><!-- Load "index.html #index_header" --></header>
+<nav><!-- Load "index.html #index_nav" --></nav>
+
+<article>
+<section>
+<h3>Basic Usage</h3>
+<p>
+  To use jQuery.Feyn, the first thing you should do is to load the scripts
+  found in the distribution:
+</p>
+<pre><code>&lt;script src=&quot;js/jquery-2.0.2.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/jquery.feyn-0.1.0.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>
+  jQuery 1.3+ should also work, but it is meaningless to support IE 6/7/8.
+  Notice that jQuery.Feyn does not depend on any external style sheets.
+  Having done this, you can configure your desired Feynman diagram such as
+</p>
+<pre><code>&lt;script&gt;
+  $(document).ready(function() {
+    $('#container').feyn({
+      incoming: {i1: '20,180', i2: '180,180'},
+      outgoing: {o1: '20,20', o2: '180,20'},
+      vertex: {v1: '100,140', v2: '100,60'},
+      fermion: {line: 'i1-v1-i2, o2-v2-o1'},
+      photon: {line: 'v1-v2'}
+    });
+  });
+&lt;/script&gt;
+</code></pre>
+<p>
+  The jQuery ID selector <code>$('#container')</code> can also be replaced by
+  any other CSS selector that applies to a unique block-level element in your document,
+  which serves as the container of jQuery.Feyn's SVG output.
+</p>
+</section>
+<section>
+<h3>Further Reading</h3>
+<ul>
+  <li><a href="manual/options.html">Option Reference</a></li>
+  <li><a href="manual/resources.html">Online Resources</a></li>
+</ul>
+</section>
+</article>
+
+<footer><!-- Load "index.html #index_footer" --></footer>
+
+</body>
+

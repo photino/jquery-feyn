@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html id="examples/qed_loop" lang="en-us">
+
+<head>
+<meta charset="utf-8"/>
+<title>One-loop Corrections in QED | jQuery.Feyn</title>
+<meta name="keywords" content="Quantum electrodynamics, electron self-energy diagram, photon-self diagram, electron vertex diagram"/>
+<meta name="description" content="Collections of examples on jQuery.Feyn's usage"/>
+<link rel="stylesheet" media="all" href="../css/normalize.css"/>
+<link rel="stylesheet" media="all" href="../css/default.css"/>
+<script src="../js/jquery.js"></script>
+<script src="../js/jdom.js"></script>
+<script src="../js/jquery.feyn.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#electron').feyn({
+      description: 'One-loop electron self-energy diagram in QED',
+      width: 200,
+      height: 120,
+      incoming: {i1: '10,90'},
+      outgoing: {o1: '190,90'},
+      vertex: {v1: '58.5,90', v2: '141.5,90'},
+      fermion: {line: 'i1-v1-v2-o1'},
+      photon: {arc: 'v2-v1'},
+      symbol: {s1: ['91,35', 0, ['arrow', 24], 16]},
+      label: {t1: ['35,105', 'p'], t2: ['165,105', 'p'],
+        t3: ['100,108', 'k'], t4: ['100,25', 'p&#8202;&#8722;&#8202;k']}
+    });
+    $('#photon').feyn({
+      description: 'One-loop photon self-energy diagram in QED',
+      width: 240,
+      height: 120,
+      incoming: {i1: '20,60'},
+      outgoing: {o1: '220,60'},
+      vertex: {v1: '80.5,60', v2: '159.5,60'},
+      fermion: {ratio: 0.75, loop: 'v1-v2'},
+      photon: {clockwise: true, line: 'i1-v1, v2-o1'},
+      symbol: {s1: ['44,75', 0, ['arrow', 0], 12],
+        s2: ['184,75', 0, ['arrow', 0], 12]},
+      label: {t1: ['10,60', '&#956;'], t2: ['230,60', '&#957;'],
+        t3: ['50,90', 'q'], t4: ['190,90', 'q'],
+        t5: ['120,108', 'k'], t6: ['120,20', 'k&#8202;+&#8202;q']}
+    });
+    $('#vertex').feyn({
+      description: 'One-loop electron vertex diagram in QED',
+      width: 180,
+      height: 200,
+      incoming: {i2: '10,100', i1: '120,186'},
+      outgoing: {o1: '120,14'},
+      vertex: {v2: '70,100', v3: '95,57', v1: '95,143'},
+      fermion: {line: 'i1-v1-v2-v3-o1'},
+      photon: {clockwise: true, line: 'i2-v2', arc: 'v1-v3', tension: 2.15},
+      symbol: {s1: ['34,115', 0, ['arrow', 0], 12],
+        s2: ['136,92', 90, ['arrow', 24], 16]},
+      label: {t1: ['100,180', 'p'], t2: ['75,140', 'k'], t3: ['40,130', 'q'],
+        t4: ['75,75', 'k&#8242;'], t5: ['100,35', 'p&#8242;'],
+        t6: ['160,105', 'k&#8202;&#8722;&#8202;p']}
+    });
+  });
+</script>
+</head>
+
+<body>
+
+<header><!-- Load "../index.html #index_header" --></header>
+<nav><!-- Load "../index.html #index_nav" --></nav>
+
+<article>
+<section>
+<h3>One-loop Corrections in Quantum Electrodynamics</h3>
+<pre><code>{
+  description: 'One-loop electron self-energy diagram in QED',
+  width: 200,
+  height: 120,
+  incoming: {i1: '10,90'},
+  outgoing: {o1: '190,90'},
+  vertex: {v1: '58.5,90', v2: '141.5,90'},
+  fermion: {line: 'i1-v1-v2-o1'},
+  photon: {arc: 'v2-v1'},
+  symbol: {s1: ['91,35', 0, ['arrow', 24], 16]},
+  label: {t1: ['35,105', 'p'], t2: ['165,105', 'p'],
+    t3: ['100,108', 'k'], t4: ['100,25', 'p&amp;#8202;&amp;#8722;&amp;#8202;k']}
+}
+</code></pre>
+<figure>
+  <div id="electron"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.1</span> Electron self-energy diagram
+    (<a href="svg/qed_electron.svg">SVG</a>,
+    <a href="eps/qed_electron.eps">EPS</a>,
+    <a href="pdf/qed_electron.pdf">PDF</a>)
+  </figcaption>
+</figure>
+<pre><code>{
+  description: 'One-loop photon self-energy diagram in QED',
+  width: 240,
+  height: 120,
+  incoming: {i1: '20,60'},
+  outgoing: {o1: '220,60'},
+  vertex: {v1: '80.5,60', v2: '159.5,60'},
+  fermion: {ratio: 0.75, loop: 'v1-v2'},
+  photon: {clockwise: true, line: 'i1-v1, v2-o1'},
+  symbol: {s1: ['44,75', 0, ['arrow', 0], 12],
+    s2: ['184,75', 0, ['arrow', 0], 12]},
+  label: {t1: ['10,60', '&amp;#956;'], t2: ['230,60', '&amp;#957;'],
+    t3: ['51,90', 'q'], t4: ['192,90', 'q'],
+    t5: ['120,108', 'k'], t6: ['120,20', 'k&amp;#8202;+&amp;#8202;q']}
+}
+</code></pre>
+<figure>
+  <div id="photon"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.2</span> Photon self-energy diagram
+    (<a href="svg/qed_photon.svg">SVG</a>,
+    <a href="eps/qed_photon.eps">EPS</a>,
+    <a href="pdf/qed_photon.pdf">PDF</a>)
+  </figcaption>
+</figure>
+<pre><code>{
+  description: 'One-loop electron vertex diagram in QED',
+  width: 180,
+  height: 200,
+  incoming: {i2: '10,100', i1: '120,186'},
+  outgoing: {o1: '120,14'},
+  vertex: {v2: '70,100', v3: '95,57', v1: '95,143'},
+  fermion: {line: 'i1-v1-v2-v3-o1'},
+  photon: {clockwise: true, line: 'i2-v2', arc: 'v1-v3', tension: 2.15},
+  symbol: {s1: ['34,115', 0, ['arrow', 0], 12],
+    s2: ['136,92', 90, ['arrow', 24], 16]},
+  label: {t1: ['100,180', 'p'], t2: ['75,140', 'k'], t3: ['40,130', 'q'],
+    t4: ['75,75', 'k&amp;#8242;'], t5: ['100,35', 'p&amp;#8242;'],
+    t6: ['160,105', 'k&amp;#8202;&amp;#8722;&amp;#8202;p']}
+}
+</code></pre>
+<figure>
+  <div id="vertex"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.3</span> Electron vertex diagram
+    (<a href="svg/qed_vertex.svg">SVG</a>,
+    <a href="eps/qed_vertex.eps">EPS</a>,
+    <a href="pdf/qed_vertex.pdf">PDF</a>)
+  </figcaption>
+</figure>
+</section>
+</article>
+
+<footer><!-- Load "../index.html #index_footer" --></footer>
+
+</body>
+
