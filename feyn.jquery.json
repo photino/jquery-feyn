@@ -1,0 +1,28 @@
+
+{ "name": "feyn",
+  "title": "jQuery.Feyn",
+  "description": "jQuery plugin for drawing Feynman diagrams with SVG",
+  "keywords": ["Feynman diagrams", "SVG"],
+  "version": "0.1.0",
+  "author": {
+    "name": "Zan Pan",
+    "url": "https://github.com/photino/"
+  },
+  "maintainers": [{
+    "name": "Zan Pan",
+    "email": "panzan89@gmail.com",
+    "url": "http://www.renren.com/tachyon"
+  }],
+  "licenses": [{
+    "type": "MIT",
+    "url": "http://photino.github.io/jquery-feyn/LICENSE.txt"
+  }],
+  "homepage": "http://photino.github.io/jquery-feyn/",
+  "download": "http://photino.github.io/jquery-feyn/download.html",
+  "docs": "http://photino.github.io/jquery-feyn/manual.html",
+  "demo": "http://photino.github.io/jquery-feyn/demo.html",
+  "bugs": "https://github.com/photino/jquery-feyn/issues",
+  "dependencies": {
+    "jquery": ">=1.3"
+  }
+}
