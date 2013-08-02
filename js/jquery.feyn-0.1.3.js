@@ -1,4 +1,4 @@
-/* jQuery.Feyn.js, version 0.1.0, MIT License
+/* jQuery.Feyn.js, version 0.1.3, MIT License
  * Plugin for drawing Feynman diagrams with SVG
  *
  * Author: Zan Pan <panzan89@gmail.com>
@@ -113,7 +113,7 @@ var Feyn = function(container, options) {
     }
   }
 
-  // Style for labels
+  // Style of labels
   var lb = {sty: {color: opts.label.color || all.color,
     thickness: opts.label.thickness || 0,
     fill: opts.label.fill || opts.label.color || all.color,
@@ -175,8 +175,7 @@ var Feyn = function(container, options) {
   var axisTrans = function(sx, sy, ex, ey) {
     var dx = ex - sx,
       dy = ey - sy;
-    return {angle: Math.atan2(dy, dx),
-      distance: Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2))};
+    return {angle: Math.atan2(dy, dx), distance: Math.sqrt(dx * dx + dy * dy)};
   };
 
   // Set transformation
@@ -186,7 +185,7 @@ var Feyn = function(container, options) {
   };
 
   // Get control points
-  var getPoints = function(sx, sy, ex, ey, x, y) {
+  var getPoint = function(sx, sy, ex, ey, x, y) {
     var ang = Math.atan2(ey - sy, ex - sx);
     return numStr(x * Math.cos(ang) - y * Math.sin(ang) + sx, ',',
       x * Math.sin(ang) + y * Math.cos(ang) + sy);
@@ -237,7 +236,7 @@ var Feyn = function(container, options) {
       model = (par == 'photon' ? tile[i % 2] : tile);
       for(var j = 0, m = model.length, item; j < m; j++) {
         item = model[j];
-        bezier.push($.isArray(item) ? getPoints(segment[i][0], segment[i][1],
+        bezier.push($.isArray(item) ? getPoint(segment[i][0], segment[i][1],
           segment[i+1][0], segment[i+1][1], item[0], item[1]) : item);
       }
     }
@@ -265,7 +264,7 @@ var Feyn = function(container, options) {
       model = (par == 'photon' ? tile[i % 2] : tile);
       for(var j = 0, m = model.length, item; j < m; j++) {
         item = model[j];
-        bezier.push($.isArray(item) ? getPoints(segment[i][0], segment[i][1],
+        bezier.push($.isArray(item) ? getPoint(segment[i][0], segment[i][1],
           segment[i+1][0], segment[i+1][1], item[0], item[1]) : item);
       }
     }
@@ -305,9 +304,9 @@ var Feyn = function(container, options) {
      c = opts.gluon.height * (opts.gluon.factor - 0.5),
      d = opts.gluon.width * (1 - opts.gluon.percent),
      pts = (opts.gluon.clockwise ?
-       [[0,0], 'A ' + a + ' ' + b, 0, 0, 1, [a, b], 'A ' + c + ' ' + d,
+       [[0, 0], 'A ' + a + ' ' + b, 0, 0, 1, [a, b], 'A ' + c + ' ' + d,
          0, 1, 1, [a - 2 * c, b], 'A ' + a + ' ' + b, 0, 0, 1] :
-       [[0,0], 'A ' + a + ' ' + b, 0, 0, 0, [a, -b], 'A ' + c + ' ' + d,
+       [[0, 0], 'A ' + a + ' ' + b, 0, 0, 0, [a, -b], 'A ' + c + ' ' + d,
          0, 1, 0, [a - 2 * c, -b], 'A ' + a + ' ' + b, 0, 0, 0]);
    a = (opts.gluon.clockwise ? a : opts.gluon.scale * a);
    var lift = a / Math.pow(distance, 0.6),
@@ -415,6 +414,7 @@ var Feyn = function(container, options) {
     var style = $.extend({}, all, {color: opts.symbol.color,
       thickness: opts.symbol.thickness, fill: 'none'}),
       t = style.thickness,
+      h = 0,
       group = '';
     delete opts.symbol.color;
     delete opts.symbol.thickness;
@@ -424,31 +424,36 @@ var Feyn = function(container, options) {
         trans = {transform: setTrans(coord[0], coord[1], item[1] * PI / 180)},
         type = item[2][0],
         p = item[2][1],
-        dis = item[3],
+        s = item[3],
         id = setId(key + '_' + type),
         pts = ['0,0'];
       if(type == 'zigzag') {
-        for(var i = 0; i <= 0.5 * dis / p; i++) {
+        for(var i = 0; i <= 0.5 * s / p; i++) {
           pts.push(numStr(p * (2 * i + 1), ',', (opts.tension + 0.2) *
             p * (1 - 2 * (i % 2))), numStr(2 * p * (i + 1), ',0'));
         }
-      } 
+      } else if(type == 'arrow') {
+        h = (2 * p > s ? Math.sqrt(p * p - s * s / 4) : (2 * p == s ? 1 : 0));
+      }
       group += {'zigzag': svgElem('polyline',
           $.extend({points: pts.join(' ')}, trans), $.extend({}, style, id)),
         arrow: svgElem('g', trans, id, svgElem('path',
-          {d: (p > dis ? numStr('M 0,0 A ', p, ' ', p, ' 0 0 1 ', dis, ',0') :
-          numStr('M 0,0 L ', dis, ',0'))}, style) + svgElem('polygon',
-            {points: numStr(dis, ',0 ', dis - 2 * t, ',', 2.5 * t, ' ',
-            dis + 3 * t, ',0 ', dis - 2 * t, ',', -2.5 * t)},
-            {thickness: 0, fill: style.color})),
+          {d: (h ? numStr('M 0,0 A ', p, ' ', p, ' 0 0 1 ', s, ',0') :
+          numStr('M 0,0 L ', s, ',0'))}, style) +
+          svgElem('polygon', {points: (h ? numStr(s, ',0 ') +
+          getPoint(s, 0, s + 2 * h * h / s, h, -2 * t, 2.5 * t) + ' ' +
+          getPoint(s, 0, s + 2 * h * h / s, h, 3 * t, 0) + ' ' +
+          getPoint(s, 0, s + 2 * h * h / s, h, -2 * t, -2.5 * t) :
+          numStr(s, ',0 ', s - 2 * t, ',', 2.5 * t, ' ', s + 3 * t, ',0 ',
+          s - 2 * t, ',', -2.5 * t))}, {thickness: 0, fill: style.color})),
         hadron: svgElem('g', trans, $.extend({}, style, id), svgElem('path',
-          {d: numStr('M 0,0 L ', dis, ',0', ' M 0,', p, ' L ', dis, ',', p,
-          ' M 0,', -p, ' L ', dis, ',', -p)}, {}) + svgElem('polygon',
-          {points: numStr(dis, ',', 2 * p, ' ', dis + 3.5 * p, ',0 ', dis,
+          {d: numStr('M 0,0 L ', s, ',0', ' M 0,', p, ' L ', s, ',', p,
+          ' M 0,', -p, ' L ', s, ',', -p)}, {}) + svgElem('polygon',
+          {points: numStr(s, ',', 2 * p, ' ', s + 3.5 * p, ',0 ', s,
           ',', -2 * p)}, {fill: 'white'})),
-        bubble: svgElem('path', $.extend({d: numStr('M 0,0 C ', p, ',', p,
-          ' ', dis, ',', p, ' ', dis, ',0 S ', p, ',', -p, ' ', ' 0,0 Z')},
-          trans), $.extend({}, style, id))}[type];
+        bubble: svgElem('path', $.extend({d: numStr('M 0,0 C ', p, ',', p, ' ',
+          s, ',', p, ' ', s, ',0 S ', p, ',', -p, ' ', ' 0,0 Z')}, trans),
+          $.extend({}, style, id))}[type];
     }
     return group ? svgElem('g', setClass('symbol'), all, group) : '';
   };
@@ -460,7 +465,7 @@ var Feyn = function(container, options) {
       style = $.extend({}, all, {color: opts.node.color,
         thickness: opts.node.thickness, fill: opts.node.fill}),
       nr = opts.node.radius + style.thickness,
-      a = nr / Math.SQRT2,
+      a = nr / Math.SQRT2 - style.thickness,
       cross = numStr('M ', -a, ',', -a, ' L ', a, ',', a,
         ' M ', -a, ',', a, ' L ', a, ',', -a),
       group = '';

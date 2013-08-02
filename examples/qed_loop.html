@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <title>One-loop Corrections in QED | jQuery.Feyn</title>
 <meta name="keywords" content="Quantum electrodynamics, electron self-energy diagram, photon-self diagram, electron vertex diagram"/>
-<meta name="description" content="Collections of examples on jQuery.Feyn's usage"/>
+<meta name="description" content="Usage of jQuery.Feyn for darwing the one-loop Feynman diagrams in QED"/>
 <link rel="stylesheet" media="all" href="../css/normalize.css"/>
 <link rel="stylesheet" media="all" href="../css/default.css"/>
 <script src="../js/jquery.js"></script>
@@ -34,7 +34,7 @@
       outgoing: {o1: '220,60'},
       vertex: {v1: '80.5,60', v2: '159.5,60'},
       fermion: {ratio: 0.75, loop: 'v1-v2'},
-      photon: {clockwise: true, line: 'i1-v1, v2-o1'},
+      photon: {clockwise: true, line: 'i1-v1,v2-o1'},
       symbol: {s1: ['44,75', 0, ['arrow', 0], 12],
         s2: ['184,75', 0, ['arrow', 0], 12]},
       label: {t1: ['10,60', '&#956;'], t2: ['230,60', '&#957;'],
@@ -98,7 +98,7 @@
   outgoing: {o1: '220,60'},
   vertex: {v1: '80.5,60', v2: '159.5,60'},
   fermion: {ratio: 0.75, loop: 'v1-v2'},
-  photon: {clockwise: true, line: 'i1-v1, v2-o1'},
+  photon: {clockwise: true, line: 'i1-v1,v2-o1'},
   symbol: {s1: ['44,75', 0, ['arrow', 0], 12],
     s2: ['184,75', 0, ['arrow', 0], 12]},
   label: {t1: ['10,60', '&amp;#956;'], t2: ['230,60', '&amp;#957;'],

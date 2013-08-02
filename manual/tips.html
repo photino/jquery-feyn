@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html id="manual/tips" lang="en-us">
+
+<head>
+<meta charset="utf-8"/>
+<title>Tips, Tricks, and Troubleshooing | jQuery.Feyn</title>
+<meta name="keywords" content="HTML5, SVG, MathML, LaTeX, Feynman diagrams"/>
+<meta name="description" content="It provides a list of online resources relevant to jQuery.Feyn"/>
+<link rel="stylesheet" media="all" href="../css/normalize.css"/>
+<link rel="stylesheet" media="all" href="../css/default.css"/>
+<script src="../js/jquery.js"></script>
+<script src="../js/jdom.js"></script>
+</head>
+
+<body>
+
+<header><!-- Load "../index.html #index_header" --></header>
+<nav><!-- Load "../index.html #index_nav" --></nav>
+
+<article>
+<section>
+<h3>Tips, Tricks, and Troubleshooting</h3>
+<ul>
+  <li>You can edit the generated SVG code directly to make fine adjustments.
+    The corresponding SVG output will be updated immediately when you
+    trigger a text change event by clicking outside of the textarea.
+    It is your own responsibility to ensure the validity of your SVG code.
+    Note that reloading the page will descard your editing, so please manually
+    save the change in an external SVG file. You can use the two textareas
+    in this way: one for testing, and the other for producing.
+  </li>
+  <li>Simple labels such as particle names, momentum, data, and comments, can be
+    typeset with jQuery.Feyn's <code>label</code> option. It supports subscript,
+    superscript, bar and tilde accents by using the <code>dx</code> and <code>dy</code>
+    attributes of <code>&lt;tspan&gt;</code>. For complicated mathematical expressions,
+    they should be included as external SVG images with the <code>image</code> option.
+    <a href="http://www.tlhiv.org/ltxpreview/">LaTeX Previewer</a> provides
+    a user-friendly utility for generating LaTeX output.
+  </li>
+  <li>For special characters such as greek letters and mathmatical operators,
+    it is recommended to input the unicode entity by citing its decimal number,
+    for example &#945; can be accessed by <code>&amp;#945;</code>. A partial list
+    of frequently used characters can be found at 
+    <a href="http://www.ascii-code.com/html-symbol.php">ascii-code.com/html-symbol</a>.
+  </li>
+  <li>If you are familiar with Mathematical Markup Language (MathML), you can also
+    include mathematical expressions by adding the <code>&lt;foreignObject&gt;</code>
+    element manually. Please check <a href="http://caniuse.com/mathml">caniuse.com/mathml</a>
+    to see whether or not your browser has a good support for MathML.
+  </li>
+  <li>SVG files can be converted to
+    <a href="http://image.online-convert.com/convert-to-eps">EPS</a> and
+    <a href="http://document.online-convert.com/convert-to-pdf">PDF</a> online.
+    If your SVG code has included some external SVG files, please set jQuery.Feyn's
+    <code>ajax</code> option to <code>true</code> to merge their code directly,
+    or copy, paste, and modify them manually. Before conversion, you should
+    <a href="http://validator.w3.org/">check</a> the markup validity of your SVG code.
+  </li>
+  <li>Chrome does not support loading local files with ajax by default
+    (Firefox has no problem). You should start Google Chrome with the
+    <code>--disable-web-security</code> or <code>--allow-file-access-from-files</code>
+    option, otherwise you will get a network error.
+  </li>
+  <li>Firefox 23 or below has a
+    <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=600207">bug</a> of
+    renderging the <code>&lt;image&gt;</code> element. Please update your
+    browser to 24+.
+  </li>
+</ul>
+</section>
+</article>
+
+<footer><!-- Load "../index.html #index_footer" --></footer>
+
+</body>
+

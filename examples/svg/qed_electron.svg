@@ -18,7 +18,7 @@
   <g stroke="black" stroke-width="1.6">
     <g transform="translate(91,35)">
       <path d="M 0,0 A 24 24 0 0 1 16,0" stroke="black" stroke-width="1.6" fill="none"/>
-      <polygon points="16,0 12.8,4 20.8,0 12.8,-4" stroke-width="0" fill="black"/>
+      <polygon points="16,0 11.65,2.705 20.525,1.6 14.316,-4.838" stroke-width="0" fill="black"/>
     </g>
   </g>
   <g stroke="black" stroke-width="0" fill="black" font-family="serif" font-size="15" font-style="italic" text-anchor="middle">
