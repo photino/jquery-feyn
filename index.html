@@ -8,7 +8,7 @@
 <meta name="description" content="An extension package allows you to draw Feynman diagrams with SVG using the standard jQuery syntax."/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0.25,user-scalable=yes"/>
 <script src="js/jquery-2.0.2.min.js"></script>
-<script src="js/jquery.feyn-0.1.3.min.js"></script>
+<script src="js/jquery.feyn-0.1.4.min.js"></script>
 <script>
   $(document).ready(function() {
     $('#aurora').feyn({
@@ -26,7 +26,7 @@
       fermion: {color: 'blue', line: 'i1-v1-i2,o2-v4-v2-v3-o1'},
       photon: {color: 'orange', line: 'v1-v2'},
       gluon: {color: 'green', line: 'v3-v4'},
-      symbol: {s1: ['a1', -90, ['arrow', 0], 25]},
+      symbol: {s1: ['a1', -90, 'arrow', 25]},
       node: {show: 'v', type: 'dot', fill: 'black', radius: 1},
       label: {t1: ['10,194', 'e^{&#8722;}'], t2: ['190,194', 'e^+'],
         t3: ['10,12', 'q'], t4: ['190,12', '-q'], t5: ['85,102', '&#947;'],
@@ -49,7 +49,7 @@
       fermion: {color: 'blue', line: 'i1-v1-i2,o2-v4-v2-v3-o1'},
       photon: {color: 'orange', line: 'v1-v2'},
       gluon: {color: 'green', line: 'v3-v4'},
-      symbol: {s1: ['a1', -90, ['arrow', 0], 25]},
+      symbol: {s1: ['a1', -90, 'arrow', 25]},
       node: {show: 'v', type: 'dot', fill: 'black', radius: 1},
       label: {t1: ['10,194', 'e^{&#8722;}'], t2: ['190,194', 'e^+'],
         t3: ['10,12', 'q'], t4: ['190,12', '-q'], t5: ['85,102', '&#947;'],
