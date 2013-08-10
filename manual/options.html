@@ -40,16 +40,16 @@
   thickness: 1.6,
   tension: 1,
   ratio: 1,
+  clockwise: false,
   incoming: {},
   outgoing: {},
   vertex: {},
   auxiliary: {},
   fermion: {arrow: true},
-  photon: {clockwise: false, period: 5, amplitude: 5},
+  photon: {period: 5, amplitude: 5},
   scalar: {arrow: false, dash: '5 5', offset: 2},
   ghost: {arrow: true, thickness: 3, dotsep: 8, offset: 5},
-  gluon: {clockwise: false, width: 15, height: 15, factor: 0.75,
-    percent: 0.6, scale: 1.15},
+  gluon: {width: 15, height: 15, factor: 0.75, percent: 0.6, scale: 1.15},
   symbol: {},
   node: {show: false, thickness: 1, radius: 3, type: 'dot', fill: 'white'},
   label: {family: 'serif', size: 15, face: 'italic'},
@@ -123,18 +123,21 @@
     </dl>
   </dd>
   <dt><strong>color</strong> : <code>String (paint | <strong>'black'</strong>)</code></dt>
-  <dd>Set the <code>stroke</code> attribute for SVG elements 
+  <dd>Set global <code>stroke</code> attribute for SVG elements 
     which defines the color of the outline
   </dd>
   <dt><strong>thickness</strong> : <code>Number (length | <strong>1.6</strong>)</code></dt>
-  <dd>Set the <code>stroke-width</code> attribute for SVG elements 
+  <dd>Set global <code>stroke-width</code> attribute for SVG elements 
     which specifies the width of the outline
   </dd>
   <dt><strong>tension</strong> : <code>Number (parameter | <strong>1</strong>)</code></dt>
-  <dd>Set the parameter of arc radius and zigzag amplitude
+  <dd>Set global parameter of arc radius and zigzag amplitude
   </dd>
   <dt><strong>ratio</strong> : <code>Number (parameter | <strong>1</strong>)</code></dt>
-  <dd>Set the parameter of elliptical arc, i.e. the ratio of y-radius to x-radius 
+  <dd>Set global parameter of elliptical arc, i.e. the ratio of y-radius to x-radius 
+  </dd>
+  <dt><strong>clockwise</strong> : <code>Boolean (true | <strong>false</strong>)</code></dt>
+  <dd>Set global <code>clockwise</code> parameter for propagators
   </dd>
   <dt><strong>incoming</strong> : <code>Object</code></dt>
   <dd>
@@ -190,7 +193,10 @@
       <dd>Set the parameter of elliptical arc for fermion propagators
       </dd>
       <dt><strong>arrow</strong> : <code>Boolean (<strong>true</strong> | false)</code></dt>
-      <dd>Determine whether or not to show arrows for photon propagators
+      <dd>Determine whether or not to show arrows for fermion propagators
+      </dd>
+      <dt><strong>clockwise</strong> : <code>Boolean (true | <strong>false</strong>)</code></dt>
+      <dd>Set the direction of arrows for arc and loop fermion propagators 
       </dd>
       <dt><strong>line</strong> : <code>String (connections)</code></dt>
       <dd>Set the directed edges between graph nodes for fermion lines
@@ -260,6 +266,9 @@
       <dt><strong>arrow</strong> : <code>Boolean (true | <strong>false</strong>)</code></dt>
       <dd>Determine whether or not to show arrows for scalar propagators
       </dd>
+      <dt><strong>clockwise</strong> : <code>Boolean (true | <strong>false</strong>)</code></dt>
+      <dd>Set the direction of arrows for arc and loop scalar propagators 
+      </dd>
       <dt><strong>dash</strong> : <code>String (dasharray | <strong>'5 5'</strong>)</code></dt>
       <dd>Set the <code>stroke-dasharray</code> attribute for <code>&lt;g&gt;</code>
         into which scalar propagators are grouped
@@ -298,6 +307,9 @@
       </dd>
       <dt><strong>arrow</strong> : <code>Boolean (<strong>true</strong> | false)</code></dt>
       <dd>Determine whether or not to show arrows for ghost propagators
+      </dd>
+      <dt><strong>clockwise</strong> : <code>Boolean (true | <strong>false</strong>)</code></dt>
+      <dd>Set the direction of arrows for arc and loop ghost propagators 
       </dd>
       <dt><strong>dotsep</strong> : <code>Number (length | <strong>8</strong>)</code></dt>
       <dd>Set the <code>stroke-dasharray</code> attribute for <code>&lt;g&gt;</code>
@@ -383,17 +395,14 @@
           <dd>Set the coordinates of graph nodes for symbol</dd>
           <dt><strong>sn[1]</strong> : <code>Number (angle)</code></dt>
           <dd>Set the x-axis-rotation angle for symbol</dd>
-          <dt><strong>sn[2]</strong> : <code>Array</code></dt>
-          <dd>
-            <dl>
-              <dt><strong>sn[2][0]</strong> : <code>String ('arrow' | 'bubble' | 'hadron' | 'zigzag')</code></dt>
-              <dd>Set the symbol type</dd>
-              <dt><strong>sn[2][1]</strong> : <code>Number (parameter)</code></dt>
-              <dd>Set the length parameter for symbol type</dd>
-            </dl>
-          </dd>
+          <dt><strong>sn[2]</strong> : <code>String ('arrow' | 'bubble' | 'hadron' | 'zigzag')</code></dt>
+          <dd>Set the symbol type</dd>
           <dt><strong>sn[3]</strong> : <code>Number (parameter)</code></dt>
-          <dd>Set the length parameter for symbol</dd>
+          <dd>Set the distance parameter for the symbol</dd>
+          <dt><strong>sn[4]</strong> : <code>Number (parameter | <strong>0</strong>)</code></dt>
+          <dd>Set the height parameter for the symbol</dd>
+          <dt><strong>sn[5]</strong> : <code>Boolean (true | <strong>false</strong>)</code></dt>
+          <dd>Enable or disable a variant for the symbol</dd>
         </dl>
       </dd>
     </dl>

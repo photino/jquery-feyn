@@ -1,8 +1,8 @@
-/* jQuery.Feyn.js, version 0.1.3, MIT License
+/* jQuery.Feyn.js, version 0.1.4, MIT License
  * Plugin for drawing Feynman diagrams with SVG
  *
  * Author: Zan Pan <panzan89@gmail.com>
- * Date: 2013-6-24
+ * Date: 2013-8-10
  *
  * Useage: $(container).feyn(options);
 */
@@ -58,16 +58,16 @@ var Feyn = function(container, options) {
     thickness: 1.6,
     tension: 1,
     ratio: 1,
+    clockwise: false,
     incoming: {},
     outgoing: {},
     vertex: {},
     auxiliary: {},
     fermion: {arrow: true},
-    photon: {clockwise: false, period: 5, amplitude: 5},
+    photon: {period: 5, amplitude: 5},
     scalar: {arrow: false, dash: '5 5', offset: 2},
     ghost: {arrow: true, thickness: 3, dotsep: 8, offset: 5},
-    gluon: {clockwise: false, width: 15, height: 15, factor: 0.75,
-      percent: 0.6, scale: 1.15},
+    gluon: {width: 15, height: 15, factor: 0.75, percent: 0.6, scale: 1.15},
     symbol: {},
     node: {show: false, thickness: 1, radius: 3, type: 'dot', fill: 'white'},
     label: {family: 'serif', size: 15, face: 'italic'},
@@ -275,22 +275,21 @@ var Feyn = function(container, options) {
   var photonPath = function(distance, shape) {
     var a = opts.photon.amplitude,
       p = opts.photon.period,
-      pts = (opts.photon.clockwise ?
-        [[0, 0], 'C', [2, -PI * a / p], [p - 2, -a], [p, -a],
-          'S', [2 * p - 2, -PI * a / p], [2 * p, 0], 'S', [3 * p - 2, a],
-          [3 * p, a], 'S', [4 * p - 2, PI * a / p]] :
+      dir = opts.photon.clockwise || opts.clockwise,
+      pts = (dir ? [[0, 0], 'C', [2, -PI * a / p], [p - 2, -a], [p, -a],
+        'S', [2 * p - 2, -PI * a / p], [2 * p, 0], 'S', [3 * p - 2, a],
+        [3 * p, a], 'S', [4 * p - 2, PI * a / p]] :
         [[0, 0], 'C', [2, PI * a / p], [p - 2, a], [p, a],
-          'S', [2 * p - 2, PI * a / p], [2 * p, 0], 'S', [3 * p - 2, -a],
-          [3 * p, -a], 'S', [4 * p - 2, -PI * a / p]]),
-      tile = (opts.photon.clockwise ? 
-        [['C', [2, -PI * a / p], [p - 2, -a], [p, -a],
-          'S', [2 * p - 2, -PI * a / p], [2 * p + 0.5, 0]],
-          ['C', [2, PI * a / p], [p - 2, a], [p, a],
-          'S', [2 * p - 2, PI * a / p], [2 * p - 0.5, 0]]] :
+        'S', [2 * p - 2, PI * a / p], [2 * p, 0], 'S', [3 * p - 2, -a],
+        [3 * p, -a], 'S', [4 * p - 2, -PI * a / p]]),
+      tile = (dir ? [['C', [2, -PI * a / p], [p - 2, -a], [p, -a],
+        'S', [2 * p - 2, -PI * a / p], [2 * p + 0.5, 0]],
+        ['C', [2, PI * a / p], [p - 2, a], [p, a],
+        'S', [2 * p - 2, PI * a / p], [2 * p - 0.5, 0]]] :
         [['C', [2, PI * a / p], [p - 2, a], [p, a],
-          'S', [2 * p - 2, PI * a / p], [2 * p - 0.5, 0]],
-          ['C', [2, -PI * a / p], [p - 2, -a], [p, -a],
-          'S', [2 * p - 2, -PI * a / p], [2 * p + 0.5, 0]]]);
+        'S', [2 * p - 2, PI * a / p], [2 * p - 0.5, 0]],
+        ['C', [2, -PI * a / p], [p - 2, -a], [p, -a],
+        'S', [2 * p - 2, -PI * a / p], [2 * p + 0.5, 0]]]);
     return {line: linePath(pts, 4 * p, distance),
       arc: arcPath('photon', tile, p, distance),
       loop: loopPath('photon', tile, p, distance)}[shape];
@@ -303,24 +302,21 @@ var Feyn = function(container, options) {
      b = opts.gluon.width * opts.gluon.percent,
      c = opts.gluon.height * (opts.gluon.factor - 0.5),
      d = opts.gluon.width * (1 - opts.gluon.percent),
-     pts = (opts.gluon.clockwise ?
-       [[0, 0], 'A ' + a + ' ' + b, 0, 0, 1, [a, b], 'A ' + c + ' ' + d,
-         0, 1, 1, [a - 2 * c, b], 'A ' + a + ' ' + b, 0, 0, 1] :
+     dir = opts.gluon.clockwise || opts.clockwise,
+     pts = (dir ? [[0, 0], 'A ' + a + ' ' + b, 0, 0, 1, [a, b], 'A ' +
+       c + ' ' + d, 0, 1, 1, [a - 2 * c, b], 'A ' + a + ' ' + b, 0, 0, 1] :
        [[0, 0], 'A ' + a + ' ' + b, 0, 0, 0, [a, -b], 'A ' + c + ' ' + d,
-         0, 1, 0, [a - 2 * c, -b], 'A ' + a + ' ' + b, 0, 0, 0]);
-   a = (opts.gluon.clockwise ? a : opts.gluon.scale * a);
+       0, 1, 0, [a - 2 * c, -b], 'A ' + a + ' ' + b, 0, 0, 0]);
+   a = (dir ? a : opts.gluon.scale * a);
    var lift = a / Math.pow(distance, 0.6),
-     tile = (opts.gluon.clockwise ?
-       ['C', [kappa * a, lift], [a, b - kappa * b], [a, b],
-         'C', [a, b + kappa * d], [a - c + kappa * c, b + d], [a - c, b + d],
-         'S', [a - 2 * c, b + kappa * d], [a - 2 * c, b],
-         'C', [a - 2 * c, b - kappa * b], [2 * (a - c) - kappa * a, 0],
-         [2 * (a - c), -lift]] :
-       ['C', [kappa * a, lift], [a, -b + kappa * b], [a, -b],
-         'C', [a, -b - kappa * d], [a - c + kappa * c, -b - d], [a - c, -b - d],
-         'S', [a - 2 * c, -b - kappa * d], [a - 2 * c, -b],
-         'C', [a - 2 * c, -b + kappa * b], [2 * (a - c) - kappa * a, 0],
-         [2 * (a - c), -lift]]);
+     tile = (dir ? ['C', [kappa * a, lift], [a, b - kappa * b], [a, b],
+       'C', [a, b + kappa * d], [a - c + kappa * c, b + d], [a - c, b + d],
+       'S', [a - 2 * c, b + kappa * d], [a - 2 * c, b], 'C', [a - 2 * c,
+       b - kappa * b], [2 * (a - c) - kappa * a, 0], [2 * (a - c), -lift]] :
+       ['C', [kappa * a, lift], [a, -b + kappa * b], [a, -b], 'C', [a,
+       -b - kappa * d], [a - c + kappa * c, -b - d], [a - c, -b - d],
+       'S', [a - 2 * c, -b - kappa * d], [a - 2 * c, -b], 'C', [a - 2 * c,
+       -b + kappa * b], [2 * (a - c) - kappa * a, 0], [2 * (a - c), -lift]]);
     return {line: linePath(pts, opts.gluon.height, distance),
       arc: arcPath('gluon', tile, a - c, distance),
       loop: loopPath('gluon', tile, a - c, distance)}[shape];
@@ -348,35 +344,38 @@ var Feyn = function(container, options) {
       t = 0.5 * Math.max(opts[par].tension || opts.tension, 1),
       f = t - Math.sqrt(Math.abs(t * t - 0.25)),
       w = axis.distance,
-      hx = f * w * Math.sin(axis.angle),
-      hy = f * w * Math.cos(axis.angle);
-    return par.match(/photon|gluon/) ?
-      [svgElem('path', {d: path[par](axis.distance, 'arc'),
-        transform: setTrans(sx, sy, axis.angle)}, id), ''] :
-      [svgElem('path', {d: numStr('M 0,0 A ', t * w, ' ', t * w,
-        ' 0 0 1 ', w, ',0'), transform: setTrans(sx, sy, axis.angle)}, attr),
+      ang = axis.angle,
+      hx = f * w * Math.sin(ang),
+      hy = f * w * Math.cos(ang),
+      dir = opts[par].clockwise || opts.clockwise;
+    return par.match(/photon|gluon/) ? [svgElem('path', {d: path[par]
+        (w, 'arc'), transform: setTrans(sx, sy, ang)}, id), ''] :
+      [svgElem('path', {d: numStr('M 0,0 A ', t * w, ' ', t * w, ' 0 0 1 ',
+        w, ',0'), transform: setTrans(sx, sy, ang)}, attr),
         setArrow(par, 0.5 * (sx + ex) + hx, 0.5 * (sy + ey) - hy,
-          axis.angle, name + '_arc_arrow')];
+          ang + (dir ? PI : 0), name + '_arc_arrow')];
   };
 
   // Plot propagator loop
   var plotLoop = function(sx, sy, ex, ey, par, name) {
     var path = {photon: photonPath, gluon: gluonPath},
       id = setId(name + '_loop'),
+      arrow = name + '_loop_arrow_',
       attr = $.extend({fill: 'none'}, id),
       axis = axisTrans(sx, sy, ex, ey),
       ratio = opts[par].ratio || opts.ratio,
       w = 0.5 * axis.distance,
-      hx = ratio * w * Math.sin(axis.angle),
-      hy = ratio * w * Math.cos(axis.angle);
-    return par.match(/photon|gluon/) ?
-      [svgElem('path', {d: path[par](axis.distance, 'loop'),
-        transform: setTrans(sx, sy, axis.angle)}, id), ''] :
+      ang = axis.angle,
+      hx = ratio * w * Math.sin(ang),
+      hy = ratio * w * Math.cos(ang),
+      dir = opts[par].clockwise || opts.clockwise;
+    return par.match(/photon|gluon/) ? [svgElem('path', {d: path[par]
+        (2 * w, 'loop'), transform: setTrans(sx, sy, ang)}, id), ''] :
       [svgElem('ellipse', {cx: numStr(w), cy: 0, rx: numStr(w),
-        ry: numStr(ratio * w), transform: setTrans(sx, sy, axis.angle)}, attr),
-        setArrow(par, 0.5 * (sx + ex) + hx, 0.5 * (sy + ey) - hy, axis.angle,
-          name + '_loop_arrow_1') + setArrow(par, 0.5 * (sx + ex) - hx,
-          0.5 * (sy + ey) + hy, PI + axis.angle, name + '_loop_arrow_2')];
+        ry: numStr(ratio * w), transform: setTrans(sx, sy, ang)}, attr),
+        setArrow(par, 0.5 * (sx + ex) + hx, 0.5 * (sy + ey) - hy, ang +
+          (dir ? PI : 0), arrow + '1') + setArrow(par, 0.5 * (sx + ex) - hx,
+          0.5 * (sy + ey) + hy, ang + (dir ? 0 : PI), arrow + '2')];
   };
 
   // Set graph edges
@@ -416,15 +415,17 @@ var Feyn = function(container, options) {
       t = style.thickness,
       h = 0,
       group = '';
-    delete opts.symbol.color;
-    delete opts.symbol.thickness;
     for(var key in opts.symbol) {
+      if(key.match(/color|thickness/)) {
+        continue;
+      }
       var item = opts.symbol[key],
         coord = nd[item[0]] || item[0].replace(/\s/g, '').split(','),
         trans = {transform: setTrans(coord[0], coord[1], item[1] * PI / 180)},
-        type = item[2][0],
-        p = item[2][1],
+        type = item[2],
         s = item[3],
+        p = item[4] || 0,
+        dir = item[5],
         id = setId(key + '_' + type),
         pts = ['0,0'];
       if(type == 'zigzag') {
@@ -440,17 +441,22 @@ var Feyn = function(container, options) {
         arrow: svgElem('g', trans, id, svgElem('path',
           {d: (h ? numStr('M 0,0 A ', p, ' ', p, ' 0 0 1 ', s, ',0') :
           numStr('M 0,0 L ', s, ',0'))}, style) +
-          svgElem('polygon', {points: (h ? numStr(s, ',0 ') +
-          getPoint(s, 0, s + 2 * h * h / s, h, -2 * t, 2.5 * t) + ' ' +
-          getPoint(s, 0, s + 2 * h * h / s, h, 3 * t, 0) + ' ' +
-          getPoint(s, 0, s + 2 * h * h / s, h, -2 * t, -2.5 * t) :
+          svgElem('polygon', {points: (h ? (dir ? numStr('0,0 ') +
+          getPoint(0, 0, -2 * h * h / s, h, -2 * t, 2.5 * t) + ' ' +
+          getPoint(0, 0, -2 * h * h / s, h, 3 * t, 0) + ' ' +
+          getPoint(0, 0, -2 * h * h / s, h, -2 * t, -2.5 * t) :
+          numStr(s, ',0 ') + getPoint(s, 0, s + 2 * h * h / s, h, -2 * t,
+          2.5 * t) + ' ' + getPoint(s, 0, s + 2 * h * h / s, h, 3 * t, 0) +
+          ' ' + getPoint(s, 0, s + 2 * h * h / s, h, -2 * t, -2.5 * t)) :
           numStr(s, ',0 ', s - 2 * t, ',', 2.5 * t, ' ', s + 3 * t, ',0 ',
           s - 2 * t, ',', -2.5 * t))}, {thickness: 0, fill: style.color})),
         hadron: svgElem('g', trans, $.extend({}, style, id), svgElem('path',
           {d: numStr('M 0,0 L ', s, ',0', ' M 0,', p, ' L ', s, ',', p,
           ' M 0,', -p, ' L ', s, ',', -p)}, {}) + svgElem('polygon',
-          {points: numStr(s, ',', 2 * p, ' ', s + 3.5 * p, ',0 ', s,
-          ',', -2 * p)}, {fill: 'white'})),
+          {points: (dir ? numStr(0.5 * s - 1.6 * p, ',', 2 * p, ' ',
+          0.5 * s + 2 * p, ',0 ', 0.5 * s - 1.6 * p, ',', -2 * p) :
+          numStr(s, ',', 2 * p, ' ', s + 3.6 * p, ',0 ', s, ',', -2 * p))},
+          {fill: 'white'})),
         bubble: svgElem('path', $.extend({d: numStr('M 0,0 C ', p, ',', p, ' ',
           s, ',', p, ' ', s, ',0 S ', p, ',', -p, ' ', ' 0,0 Z')}, trans),
           $.extend({}, style, id))}[type];
