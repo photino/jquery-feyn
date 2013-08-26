@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html id="examples/qcd_parton" lang="en-us">
+
+<head>
+<meta charset="utf-8"/>
+<title>The Parton Model and Perturbative QCD | jQuery.Feyn</title>
+<meta name="keywords" content="Quantum chromodynamics, deep inelastic scattering, Drell-Yan process, deeply virtual Compton scattering"/>
+<meta name="description" content="Usage of jQuery.Feyn for darwing parton-model related Feynman diagrams in QCD"/>
+<link rel="stylesheet" media="all" href="../css/normalize.css"/>
+<link rel="stylesheet" media="all" href="../css/default.css"/>
+<script src="../js/jquery.js"></script>
+<script src="../js/jdom.js"></script>
+<script src="../js/jquery.feyn.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#electron').feyn({
+      description: 'Deep inelastic lepton-hadron scattering',
+      width: 200,
+      height: 180,
+      incoming: {i1: '10,50', i2: '10,130'},
+      outgoing: {o1: '135,10', o2: '190,90'},
+      vertex: {v1: '90,50', v2: '135,90', v3: '99,122'},
+      fermion: {line: 'i1-v1-o1,v3-v2-o2'},
+      photon: {line: 'v1-v2'},
+      symbol: {s1: ['i2', 0, 'hadron', 80, 4],
+        s2: ['98,137', 41.634, 'hadron', 40, 4, true],
+        s3: ['85,130', 0, 'blob', 10, 10],
+        s4: ['115,55', 41.634, 'arrow', 16]},
+      label: {t1: ['50,43', 'k'], t2: ['110,23', 'k&#8242;'],
+        t3: ['125,53', 'q'], t4: ['160,80', 'p&#8202;+&#8202;q'],
+        t5: ['125,117', 'p'], t6: ['50,119', 'P']}
+    });
+    $('#lepton').feyn({
+      description: 'The Drell-Yan process for lepton pair production',
+      width: 280,
+      height: 160,
+      incoming: {i1: '80,130', i2: '200,130'},
+      outgoing: {o1: '80,10', o2: '200,10'},
+      vertex: {v1: '140,100', v2: '140,40'},
+      fermion: {line: 'i1-v1-i2,o2-v2-o1'},
+      photon: {line: 'v2-v1'},
+      symbol: {s1: ['10,130', 0, 'hadron', 60, 4],
+        s2: ['270,130', 180, 'hadron', 60, 4],
+        s3: ['75,133', 26.565, 'hadron', 35, 4, true],
+        s4: ['205,133', 153.435, 'hadron', 35, 4, true],
+        s5: ['65,130', 0, 'blob', 10, 10],
+        s6: ['195,130', 0, 'blob', 10, 10],
+        s7: ['168,36', -26.565, 'arrow', 16],
+        s8: ['152,80', -90, 'arrow', 16],
+        s9: ['180,110', -153.435, 'arrow', 16]},
+      label: {t1: ['40,119', 'P'], t2: ['240,119', 'P&#8242;'],
+        t3: ['110,43', 'k'], t4: ['180,48', 'k&#8242;'], t5: ['162,72', 'q'],
+        t6: ['110,105', 'p'], t7: ['180,98', 'p&#8242;']}
+    });
+    $('#compton').feyn({
+      description: 'Deeply virtual Compton scattering',
+      width: 220,
+      height: 150,
+      incoming: {i1: '10,100', i2: '210,100'},
+      outgoing: {o1: '10,10', o2: '210,10'},
+      vertex: {v1: '62,40', v2: '158,40', v3: '62,100', v4: '158,100'},
+      fermion: {line: 'v3-v1-v2-v4'},
+      photon: {clockwise: true, line: 'v1-o1,v2-o2'},
+      symbol: {s1: ['10,135', -29.982, 'hadron', 53, 4],
+        s2: ['165,110', 29.982, 'hadron', 53, 4],
+        s3: ['52,110', 0, 'blob', 53, 10, true],
+        s4: ['25,33', 29.982, 'arrow', 16],
+        s5: ['185,38', -29.982, 'arrow', 16]},
+      label: {t1: ['29,113', 'P'], t2: ['196,113', 'P&#8242;'],
+        t3: ['29,50', 'q'], t4: ['196,47', 'q&#8242;'], t5: ['52,75', 'k'],
+        t6: ['108,32', 'k&#8202;+&#8202;q'], t7: ['170,75', 'k&#8242;']}
+    });
+  });
+</script>
+</head>
+
+<body>
+
+<header><!-- Load "../index.html #index_header" --></header>
+<nav><!-- Load "../index.html #index_nav" --></nav>
+
+<article>
+<section>
+<h3>The Parton Model and Perturbative QCD</h3>
+<pre><code>{
+  description: 'Deep inelastic lepton-hadron scattering',
+  width: 200,
+  height: 180,
+  incoming: {i1: '10,50', i2: '10,130'},
+  outgoing: {o1: '135,10', o2: '190,90'},
+  vertex: {v1: '90,50', v2: '135,90', v3: '99,122'},
+  fermion: {line: 'i1-v1-o1,v3-v2-o2'},
+  photon: {line: 'v1-v2'},
+  symbol: {s1: ['i2', 0, 'hadron', 80, 4],
+    s2: ['98,137', 41.634, 'hadron', 40, 4, true],
+    s3: ['85,130', 0, 'blob', 10, 10],
+    s4: ['115,55', 41.634, 'arrow', 16]},
+  label: {t1: ['50,43', 'k'], t2: ['110,23', 'k&amp;#8242;'],
+    t3: ['130,53', 'q'], t4: ['160,80', 'p&amp;#8202;+&amp;#8202;q'],
+    t5: ['125,117', 'p'], t6: ['50,119', 'P']}
+}
+</code></pre>
+<figure>
+  <div id="electron"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.1</span> Deep inelastic lepton-hadron scattering
+    (<a href="svg/parton_ep.svg">SVG</a>,
+    <a href="eps/parton_ep.eps">EPS</a>,
+    <a href="pdf/parton_ep.pdf">PDF</a>)
+  </figcaption>
+</figure>
+<pre><code>{
+  description: 'The Drell-Yan process for lepton pair production',
+  width: 280,
+  height: 160,
+  incoming: {i1: '80,130', i2: '200,130'},
+  outgoing: {o1: '80,10', o2: '200,10'},
+  vertex: {v1: '140,100', v2: '140,40'},
+  fermion: {line: 'i1-v1-i2,o2-v2-o1'},
+  photon: {line: 'v2-v1'},
+  symbol: {s1: ['10,130', 0, 'hadron', 60, 4],
+    s2: ['270,130', 180, 'hadron', 60, 4],
+    s3: ['75,133', 26.565, 'hadron', 35, 4, true],
+    s4: ['205,133', 153.435, 'hadron', 35, 4, true],
+    s5: ['65,130', 0, 'blob', 10, 10],
+    s6: ['195,130', 0, 'blob', 10, 10],
+    s7: ['168,36', -26.565, 'arrow', 16],
+    s8: ['152,80', -90, 'arrow', 16],
+    s9: ['180,110', -153.435, 'arrow', 16]},
+  label: {t1: ['40,119', 'P'], t2: ['240,119', 'P&amp;#8242;'],
+    t3: ['110,43', 'k'], t4: ['180,48', 'k&amp;#8242;'], t5: ['162,72', 'q'],
+    t6: ['110,105', 'p'], t7: ['180,98', 'p&amp;#8242;']}
+}
+</code></pre>
+<figure>
+  <div id="lepton"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.2</span> The Drell-Yan process for lepton pair production
+    (<a href="svg/parton_pp.svg">SVG</a>,
+    <a href="eps/parton_pp.eps">EPS</a>,
+    <a href="pdf/parton_pp.pdf">PDF</a>)
+  </figcaption>
+</figure>
+<pre><code>{
+  description: 'Deeply virtual Compton scattering',
+  width: 220,
+  height: 150,
+  incoming: {i1: '10,100', i2: '210,100'},
+  outgoing: {o1: '10,10', o2: '210,10'},
+  vertex: {v1: '62,40', v2: '158,40', v3: '62,100', v4: '158,100'},
+  fermion: {line: 'v3-v1-v2-v4'},
+  photon: {clockwise: true, line: 'v1-o1,v2-o2'},
+  symbol: {s1: ['10,135', -29.982, 'hadron', 53, 4],
+    s2: ['165,110', 29.982, 'hadron', 53, 4],
+    s3: ['52,110', 0, 'blob', 53, 10, true],
+    s4: ['25,33', 29.982, 'arrow', 16],
+    s5: ['185,38', -29.982, 'arrow', 16]},
+  label: {t1: ['29,113', 'P'], t2: ['196,113', 'P&amp;#8242;'],
+    t3: ['29,50', 'q'], t4: ['196,47', 'q&amp;#8242;'], t5: ['52,75', 'k'],
+    t6: ['108,32', 'k&amp;#8202;+&amp;#8202;q'], t7: ['170,75', 'k&amp;#8242;']}
+}
+</code></pre>
+<figure>
+  <div id="compton"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.3</span> Deeply virtual Compton scattering
+    (<a href="svg/parton_dvcs.svg">SVG</a>,
+    <a href="eps/parton_dvcs">EPS</a>,
+    <a href="pdf/parton_dvcs.pdf">PDF</a>)
+  </figcaption>
+</figure>
+</section>
+</article>
+
+<footer><!-- Load "../index.html #index_footer" --></footer>
+
+</body>
+

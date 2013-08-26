@@ -3,13 +3,17 @@
 */
 
 (function() {
+'use strict';
+
 var url = window.location.href,
   html = $('html').attr('id'),
   menu = html.split('/')[0],
   host = url.replace(html + '.html', ''),
   path = (html.indexOf('/') != -1) ? '../' : '';
 
-// Set viewport for mobile phones
+// Set favicon viewport for mobile phones
+$('head').append('<link rel="icon" type="image/png" href="' +
+  path + 'favicon.png"/>');
 $('head').append('<meta name="viewport" content="width=device-width,' +
   'initial-scale=1.0,minimum-scale=0.25,user-scalable=yes"/>');
 

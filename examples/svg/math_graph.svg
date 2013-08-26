@@ -2,32 +2,32 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" width="240" height="200">
   <desc>An arc diagram of the Goldner–Harary graph</desc>
-  <g stroke="black" stroke-width="1.6" stroke-linecap="round">
+  <g fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round">
     <line x1="10" y1="80" x2="190" y2="80"/>
-    <path d="M 0,0 A 20 20 0 0 1 40,0" transform="translate(10,80)" fill="none"/>
-    <path d="M 0,0 A 40 40 0 0 1 80,0" transform="translate(10,80)" fill="none"/>
-    <path d="M 0,0 A 20 20 0 0 1 40,0" transform="translate(90,80)" fill="none"/>
-    <path d="M 0,0 A 20 20 0 0 1 40,0" transform="translate(130,80)" fill="none"/>
-    <path d="M 0,0 A 80 80 0 0 1 160,0" transform="translate(170,80) rotate(180)" fill="none"/>
-    <path d="M 0,0 A 30 30 0 0 1 60,0" transform="translate(10,80)" fill="none"/>
-    <path d="M 0,0 A 50 50 0 0 1 100,0" transform="translate(90,80)" fill="none"/>
-    <path d="M 0,0 A 60 60 0 0 1 120,0" transform="translate(90,80)" fill="none"/>
-    <path d="M 0,0 A 20 20 0 0 1 40,0" transform="translate(210,80) rotate(180)" fill="none"/>
-    <path d="M 0,0 A 70 70 0 0 1 140,0" transform="translate(90,80)" fill="none"/>
-    <path d="M 0,0 A 30 30 0 0 1 60,0" transform="translate(230,80) rotate(180)" fill="none"/>
-    <path d="M 0,0 A 30 30 0 0 1 60,0" transform="translate(130,80)" fill="none"/>
-    <path d="M 0,0 A 110 110 0 0 1 220,0" transform="translate(230,80) rotate(180)" fill="none"/>
-    <path d="M 0,0 A 70 70 0 0 1 140,0" transform="translate(150,80) rotate(180)" fill="none"/>
-    <path d="M 0,0 A 40 40 0 0 1 80,0" transform="translate(130,80) rotate(180)" fill="none"/>
-    <path d="M 0,0 A 50 50 0 0 1 100,0" transform="translate(130,80) rotate(180)" fill="none"/>
-    <path d="M 0,0 A 60 60 0 0 1 120,0" transform="translate(130,80) rotate(180)" fill="none"/>
-    <path d="M 0,0 A 30 30 0 0 1 60,0" transform="translate(110,80) rotate(180)" fill="none"/>
-    <path d="M 0,0 A 20 20 0 0 1 40,0" transform="translate(90,80) rotate(180)" fill="none"/>
+    <path d="M 0,0 A 20 20 0 0 1 40,0" transform="translate(10,80)"/>
+    <path d="M 0,0 A 40 40 0 0 1 80,0" transform="translate(10,80)"/>
+    <path d="M 0,0 A 20 20 0 0 1 40,0" transform="translate(90,80)"/>
+    <path d="M 0,0 A 20 20 0 0 1 40,0" transform="translate(130,80)"/>
+    <path d="M 0,0 A 80 80 0 0 1 160,0" transform="translate(170,80) rotate(180)"/>
+    <path d="M 0,0 A 30 30 0 0 1 60,0" transform="translate(10,80)"/>
+    <path d="M 0,0 A 50 50 0 0 1 100,0" transform="translate(90,80)"/>
+    <path d="M 0,0 A 60 60 0 0 1 120,0" transform="translate(90,80)"/>
+    <path d="M 0,0 A 20 20 0 0 1 40,0" transform="translate(210,80) rotate(180)"/>
+    <path d="M 0,0 A 70 70 0 0 1 140,0" transform="translate(90,80)"/>
+    <path d="M 0,0 A 30 30 0 0 1 60,0" transform="translate(230,80) rotate(180)"/>
+    <path d="M 0,0 A 30 30 0 0 1 60,0" transform="translate(130,80)"/>
+    <path d="M 0,0 A 110 110 0 0 1 220,0" transform="translate(230,80) rotate(180)"/>
+    <path d="M 0,0 A 70 70 0 0 1 140,0" transform="translate(150,80) rotate(180)"/>
+    <path d="M 0,0 A 40 40 0 0 1 80,0" transform="translate(130,80) rotate(180)"/>
+    <path d="M 0,0 A 50 50 0 0 1 100,0" transform="translate(130,80) rotate(180)"/>
+    <path d="M 0,0 A 60 60 0 0 1 120,0" transform="translate(130,80) rotate(180)"/>
+    <path d="M 0,0 A 30 30 0 0 1 60,0" transform="translate(110,80) rotate(180)"/>
+    <path d="M 0,0 A 20 20 0 0 1 40,0" transform="translate(90,80) rotate(180)"/>
   </g>
-  <g stroke="#FFA000" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="2 3" stroke-dashoffset="2">
+  <g fill="none" stroke="#FFA000" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="2 3" stroke-dashoffset="2">
     <line x1="190" y1="80" x2="230" y2="80"/>
   </g>
-  <g stroke="black" stroke-width="1" fill="#00A0FF">
+  <g fill="#00A0FF" stroke="black" stroke-width="1">
     <circle cx="10" cy="80" r="4"/>
     <circle cx="30" cy="80" r="4"/>
     <circle cx="50" cy="80" r="4"/>

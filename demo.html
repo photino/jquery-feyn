@@ -63,8 +63,8 @@
         x = Math.round(e.pageX - offset.left),
         y = Math.round(e.pageY - offset.top);
       $('svg .feyn_coord').remove();
-      $(this).children('svg').append('<text class="feyn_coord" x="' + x
-        + '" y="' + y + '" font-size="10">' + x  + ',' + y + '</text>');
+      $(this).children('svg').append('<text class="feyn_coord" x="' + x +
+        '" y="' + y + '" font-size="10">' + x  + ',' + y + '</text>');
       $(this).html($(this).html());
       return false;
     });

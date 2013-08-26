@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" width="220" height="150">
+  <desc>Deeply virtual Compton scattering</desc>
+  <g fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round">
+    <line x1="62" y1="100" x2="62" y2="40"/>
+    <line x1="62" y1="40" x2="158" y2="40"/>
+    <line x1="158" y1="40" x2="158" y2="100"/>
+    <g fill="black" stroke-width="0">
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(62,70) rotate(-90)"/>
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(110,40)"/>
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(158,70) rotate(90)"/>
+    </g>
+  </g>
+  <g fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round">
+    <path d="M 0,0 C 2,-3.142 3,-5 5,-5 S 8,-3.142 10,0 S 13,5 15,5 S 18,3.142 20,0 C 22,-3.142 23,-5 25,-5 S 28,-3.142 30,0 S 33,5 35,5 S 38,3.142 40,0 C 42,-3.142 43,-5 45,-5 S 48,-3.142 50,0 S 53,5 55,5 S 58,3.142 60,0" transform="translate(62,40) rotate(-150.018)"/>
+    <path d="M 0,0 C 2,-3.142 3,-5 5,-5 S 8,-3.142 10,0 S 13,5 15,5 S 18,3.142 20,0 C 22,-3.142 23,-5 25,-5 S 28,-3.142 30,0 S 33,5 35,5 S 38,3.142 40,0 C 42,-3.142 43,-5 45,-5 S 48,-3.142 50,0 S 53,5 55,5 S 58,3.142 60,0" transform="translate(158,40) rotate(-29.982)"/>
+  </g>
+  <g fill="none" stroke="black" stroke-width="1.6">
+    <g transform="translate(10,135) rotate(-29.982)">
+      <path d="M 0,0 L 53,0 M 0,4 L 53,4 M 0,-4 L 53,-4"/>
+      <polygon points="20.1,8 34.5,0 20.1,-8" fill="white"/>
+    </g>
+    <g transform="translate(165,110) rotate(29.982)">
+      <path d="M 0,0 L 53,0 M 0,4 L 53,4 M 0,-4 L 53,-4"/>
+      <polygon points="20.1,8 34.5,0 20.1,-8" fill="white"/>
+    </g>
+    <path d="M 10,-10 A 10 10 0 1 0 10,10 L 106,10 A 10 10 0 1 0 106,-10 L 10,-10 Z" transform="translate(52,110)" fill="silver"/>
+    <g transform="translate(25,33) rotate(29.982)">
+      <path d="M 0,0 L 16,0"/>
+      <polygon points="16,0 12.8,4 20.8,0 12.8,-4" fill="black" stroke-width="0"/>
+    </g>
+    <g transform="translate(185,38) rotate(-29.982)">
+      <path d="M 0,0 L 16,0"/>
+      <polygon points="16,0 12.8,4 20.8,0 12.8,-4" fill="black" stroke-width="0"/>
+    </g>
+  </g>
+  <g fill="black" stroke="black" stroke-width="0" font-family="Georgia" font-size="15" font-style="italic" text-anchor="middle">
+    <text x="29" y="113">
+      <tspan>P</tspan>
+    </text>
+    <text x="196" y="113">
+      <tspan>P&#8242;</tspan>
+    </text>
+    <text x="29" y="50">
+      <tspan>q</tspan>
+    </text>
+    <text x="196" y="47">
+      <tspan>q&#8242;</tspan>
+    </text>
+    <text x="52" y="75">
+      <tspan>k</tspan>
+    </text>
+    <text x="108" y="32">
+      <tspan>k&#8202;+&#8202;q</tspan>
+    </text>
+    <text x="170" y="75">
+      <tspan>k&#8242;</tspan>
+    </text>
+  </g>
+</svg>
+

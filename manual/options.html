@@ -52,7 +52,7 @@
   gluon: {width: 15, height: 15, factor: 0.75, percent: 0.6, scale: 1.15},
   symbol: {},
   node: {show: false, thickness: 1, radius: 3, type: 'dot', fill: 'white'},
-  label: {family: 'serif', size: 15, face: 'italic'},
+  label: {family: 'Georgia', size: 15, face: 'italic'},
   image: {},
   ajax: false
 }
@@ -395,7 +395,7 @@
           <dd>Set the coordinates of graph nodes for symbol</dd>
           <dt><strong>sn[1]</strong> : <code>Number (angle)</code></dt>
           <dd>Set the x-axis-rotation angle for symbol</dd>
-          <dt><strong>sn[2]</strong> : <code>String ('arrow' | 'bubble' | 'hadron' | 'zigzag')</code></dt>
+          <dt><strong>sn[2]</strong> : <code>String ('arrow' | 'blob' | 'bubble' | 'hadron' | 'meson' | 'zigzag')</code></dt>
           <dd>Set the symbol type</dd>
           <dt><strong>sn[3]</strong> : <code>Number (parameter)</code></dt>
           <dd>Set the distance parameter for the symbol</dd>
@@ -424,7 +424,7 @@
       <dt><strong>radius</strong> : <code>Number (length | <strong>3</strong>)</code></dt>
       <dd>Set the radius parameter of nodes
       </dd>
-      <dt><strong>type</strong> : <code>String (<strong>'dot'</strong> | 'otimes')</code></dt>
+      <dt><strong>type</strong> : <code>String ('cross' | <strong>'dot'</strong> | 'otimes')</code></dt>
       <dd>Set the node type
       </dd>
       <dt><strong>fill</strong> : <code>String (paint | <strong>'white'</strong>)</code></dt>
@@ -448,7 +448,7 @@
       <dd>Set the <code>fill</code> attribute for <code>&lt;g&gt;</code>
         into which labels are grouped
       </dd>
-      <dt><strong>family</strong> : <code>String (family-name | <strong>'serif'</strong>)</code></dt>
+      <dt><strong>family</strong> : <code>String (family-name | <strong>'Georgia'</strong>)</code></dt>
       <dd>Set the <code>font-family</code> attribute for <code>&lt;g&gt;</code>
         into which labels are grouped
       </dd>

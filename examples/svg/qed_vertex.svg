@@ -2,33 +2,33 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" width="180" height="200">
   <desc>One-loop electron vertex diagram in QED</desc>
-  <g stroke="black" stroke-width="1.6" stroke-linecap="round">
+  <g fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round">
     <line x1="120" y1="186" x2="95" y2="143"/>
     <line x1="95" y1="143" x2="70" y2="100"/>
     <line x1="70" y1="100" x2="95" y2="57"/>
     <line x1="95" y1="57" x2="120" y2="14"/>
-    <g stroke-width="0" fill="black">
+    <g fill="black" stroke-width="0">
       <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(107.5,164.5) rotate(-120.174)"/>
       <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(82.5,121.5) rotate(-120.174)"/>
       <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(82.5,78.5) rotate(-59.826)"/>
       <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(107.5,35.5) rotate(-59.826)"/>
     </g>
   </g>
-  <g stroke="black" stroke-width="1.6" stroke-linecap="round" fill="none">
+  <g fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round">
     <path d="M 0,0 C 2,-3.142 3,-5 5,-5 S 8,-3.142 10,0 S 13,5 15,5 S 18,3.142 20,0 C 22,-3.142 23,-5 25,-5 S 28,-3.142 30,0 S 33,5 35,5 S 38,3.142 40,0 C 42,-3.142 43,-5 45,-5 S 48,-3.142 50,0 S 53,5 55,5 S 58,3.142 60,0" transform="translate(10,100)"/>
     <path d="M 0,0 C 3.711,0.308 5.822,0.328 6.753,2.098 S 6.504,5.618 4.887,9.293 C 3.543,12.405 2.768,14.368 4.057,15.897 S 7.413,16.991 10.781,16.111 C 14.601,15.214 16.524,14.346 18.113,15.561 S 19.366,18.86 19.442,22.874 C 19.53,26.263 19.651,28.37 21.463,29.215 S 24.967,28.799 27.655,26.586 C 30.744,24.167 32.125,22.571 34.077,23.007 S 36.6,25.474 38.356,29.085 C 39.859,32.123 40.853,33.985 42.853,33.99 S 45.859,32.141 47.368,29.003 C 49.155,25.51 49.738,23.482 51.692,23.057 S 55.018,24.237 58.128,26.776 C 60.769,28.902 62.453,30.173 64.27,29.339 S 66.221,26.397 66.272,22.917 C 66.427,18.996 66.104,16.91 67.7,15.704 S 71.213,15.377 75.102,16.375 C 78.391,17.195 80.454,17.642 81.753,16.12 S 82.287,12.632 80.872,9.452 C 79.365,5.828 78.196,4.072 79.137,2.307 S 82.188,0.534 86.137,-0.194" transform="translate(95,143) rotate(-90)"/>
   </g>
-  <g stroke="black" stroke-width="1.6">
+  <g fill="none" stroke="black" stroke-width="1.6">
     <g transform="translate(34,115)">
-      <path d="M 0,0 L 12,0" stroke="black" stroke-width="1.6" fill="none"/>
-      <polygon points="12,0 8.8,4 16.8,0 8.8,-4" stroke-width="0" fill="black"/>
+      <path d="M 0,0 L 12,0"/>
+      <polygon points="12,0 8.8,4 16.8,0 8.8,-4" fill="black" stroke-width="0"/>
     </g>
     <g transform="translate(136,95) rotate(90)">
-      <path d="M 0,0 A 24 24 0 0 1 16,0" stroke="black" stroke-width="1.6" fill="none"/>
-      <polygon points="0,0 1.684,-4.838 -4.525,1.6 4.35,2.705" stroke-width="0" fill="black"/>
+      <path d="M 0,0 A 24 24 0 0 1 16,0"/>
+      <polygon points="0,0 1.684,-4.838 -4.525,1.6 4.35,2.705" fill="black" stroke-width="0"/>
     </g>
   </g>
-  <g stroke="black" stroke-width="0" fill="black" font-family="serif" font-size="15" font-style="italic" text-anchor="middle">
+  <g fill="black" stroke="black" stroke-width="0" font-family="Georgia" font-size="15" font-style="italic" text-anchor="middle">
     <text x="100" y="180">
       <tspan>p</tspan>
     </text>

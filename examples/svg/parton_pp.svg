@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" width="280" height="160">
+  <desc>The Drell-Yan process for lepton pair production</desc>
+  <g fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round">
+    <line x1="80" y1="130" x2="140" y2="100"/>
+    <line x1="140" y1="100" x2="200" y2="130"/>
+    <line x1="200" y1="10" x2="140" y2="40"/>
+    <line x1="140" y1="40" x2="80" y2="10"/>
+    <g fill="black" stroke-width="0">
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(110,115) rotate(-26.565)"/>
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(170,115) rotate(26.565)"/>
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(170,25) rotate(153.435)"/>
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(110,25) rotate(-153.435)"/>
+    </g>
+  </g>
+  <g fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round">
+    <path d="M 0,0 C 2,3.142 3,5 5,5 S 8,3.142 10,0 S 13,-5 15,-5 S 18,-3.142 20,0 C 22,3.142 23,5 25,5 S 28,3.142 30,0 S 33,-5 35,-5 S 38,-3.142 40,0 C 42,3.142 43,5 45,5 S 48,3.142 50,0 S 53,-5 55,-5 S 58,-3.142 60,0" transform="translate(140,40) rotate(90)"/>
+  </g>
+  <g fill="none" stroke="black" stroke-width="1.6">
+    <g transform="translate(10,130)">
+      <path d="M 0,0 L 60,0 M 0,4 L 60,4 M 0,-4 L 60,-4"/>
+      <polygon points="23.6,8 38,0 23.6,-8" fill="white"/>
+    </g>
+    <g transform="translate(270,130) rotate(180)">
+      <path d="M 0,0 L 60,0 M 0,4 L 60,4 M 0,-4 L 60,-4"/>
+      <polygon points="23.6,8 38,0 23.6,-8" fill="white"/>
+    </g>
+    <g transform="translate(75,133) rotate(26.565)">
+      <path d="M 0,0 L 35,0 M 0,4 L 35,4 M 0,-4 L 35,-4"/>
+      <polygon points="35,8 49.4,0 35,-8" fill="white"/>
+    </g>
+    <g transform="translate(205,133) rotate(153.435)">
+      <path d="M 0,0 L 35,0 M 0,4 L 35,4 M 0,-4 L 35,-4"/>
+      <polygon points="35,8 49.4,0 35,-8" fill="white"/>
+    </g>
+    <ellipse cx="10" cy="0" rx="10" ry="10" transform="translate(65,130)" fill="silver"/>
+    <ellipse cx="10" cy="0" rx="10" ry="10" transform="translate(195,130)" fill="silver"/>
+    <g transform="translate(168,36) rotate(-26.565)">
+      <path d="M 0,0 L 16,0"/>
+      <polygon points="16,0 12.8,4 20.8,0 12.8,-4" fill="black" stroke-width="0"/>
+    </g>
+    <g transform="translate(152,80) rotate(-90)">
+      <path d="M 0,0 L 16,0"/>
+      <polygon points="16,0 12.8,4 20.8,0 12.8,-4" fill="black" stroke-width="0"/>
+    </g>
+    <g transform="translate(180,110) rotate(-153.435)">
+      <path d="M 0,0 L 16,0"/>
+      <polygon points="16,0 12.8,4 20.8,0 12.8,-4" fill="black" stroke-width="0"/>
+    </g>
+  </g>
+  <g fill="black" stroke="black" stroke-width="0" font-family="Georgia" font-size="15" font-style="italic" text-anchor="middle">
+    <text x="40" y="119">
+      <tspan>P</tspan>
+    </text>
+    <text x="240" y="119">
+      <tspan>P&#8242;</tspan>
+    </text>
+    <text x="110" y="43">
+      <tspan>k</tspan>
+    </text>
+    <text x="180" y="48">
+      <tspan>k&#8242;</tspan>
+    </text>
+    <text x="162" y="72">
+      <tspan>q</tspan>
+    </text>
+    <text x="110" y="105">
+      <tspan>p</tspan>
+    </text>
+    <text x="180" y="98">
+      <tspan>p&#8242;</tspan>
+    </text>
+  </g>
+</svg>
+

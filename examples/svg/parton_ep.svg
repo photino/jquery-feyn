@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" width="200" height="180">
+  <desc>Electron-proton deep inelastic scattering</desc>
+  <g fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round">
+    <line x1="10" y1="50" x2="90" y2="50"/>
+    <line x1="90" y1="50" x2="135" y2="10"/>
+    <line x1="99" y1="122" x2="135" y2="90"/>
+    <line x1="135" y1="90" x2="190" y2="90"/>
+    <g fill="black" stroke-width="0">
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(50,50)"/>
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(112.5,30) rotate(-41.634)"/>
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(117,106) rotate(-41.634)"/>
+      <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(162.5,90)"/>
+    </g>
+  </g>
+  <g fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round">
+    <path d="M 0,0 C 2,3.142 3,5 5,5 S 8,3.142 10,0 S 13,-5 15,-5 S 18,-3.142 20,0 C 22,3.142 23,5 25,5 S 28,3.142 30,0 S 33,-5 35,-5 S 38,-3.142 40,0 C 42,3.142 43,5 45,5 S 48,3.142 50,0 S 53,-5 55,-5 S 58,-3.142 60,0" transform="translate(90,50) rotate(41.634)"/>
+  </g>
+  <g fill="none" stroke="black" stroke-width="1.6">
+    <g transform="translate(10,130)">
+      <path d="M 0,0 L 80,0 M 0,4 L 80,4 M 0,-4 L 80,-4"/>
+      <polygon points="33.6,8 48,0 33.6,-8" fill="white"/>
+    </g>
+    <g transform="translate(98,137) rotate(41.634)">
+      <path d="M 0,0 L 40,0 M 0,4 L 40,4 M 0,-4 L 40,-4"/>
+      <polygon points="40,8 54.4,0 40,-8" fill="white"/>
+    </g>
+    <ellipse cx="10" cy="0" rx="10" ry="10" transform="translate(85,130)" fill="silver"/>
+    <g transform="translate(115,55) rotate(41.634)">
+      <path d="M 0,0 L 16,0"/>
+      <polygon points="16,0 12.8,4 20.8,0 12.8,-4" fill="black" stroke-width="0"/>
+    </g>
+  </g>
+  <g fill="black" stroke="black" stroke-width="0" font-family="Georgia" font-size="15" font-style="italic" text-anchor="middle">
+    <text x="50" y="43">
+      <tspan>k</tspan>
+    </text>
+    <text x="110" y="23">
+      <tspan>k&#8242;</tspan>
+    </text>
+    <text x="125" y="53">
+      <tspan>q</tspan>
+    </text>
+    <text x="160" y="80">
+      <tspan>p&#8202;+&#8202;q</tspan>
+    </text>
+    <text x="125" y="117">
+      <tspan>p</tspan>
+    </text>
+    <text x="50" y="119">
+      <tspan>P</tspan>
+    </text>
+  </g>
+</svg>
+

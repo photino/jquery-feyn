@@ -2,28 +2,28 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" width="240" height="120">
   <desc>One-loop photon self-energy diagram in QED</desc>
-  <g stroke="black" stroke-width="1.6" stroke-linecap="round">
-    <ellipse cx="39.5" cy="0" rx="39.5" ry="29.625" transform="translate(80.5,60)" fill="none"/>
-    <g stroke-width="0" fill="black">
+  <g fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round">
+    <ellipse cx="39.5" cy="0" rx="39.5" ry="29.625" transform="translate(80.5,60)"/>
+    <g fill="black" stroke-width="0">
       <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(120,30.375)"/>
       <polygon points="0,0 -3.2,4 4.8,0 -3.2,-4" transform="translate(120,89.625) rotate(180)"/>
     </g>
   </g>
-  <g stroke="black" stroke-width="1.6" stroke-linecap="round" fill="none">
+  <g fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round">
     <path d="M 0,0 C 2,-3.142 3,-5 5,-5 S 8,-3.142 10,0 S 13,5 15,5 S 18,3.142 20,0 C 22,-3.142 23,-5 25,-5 S 28,-3.142 30,0 S 33,5 35,5 S 38,3.142 40,0 C 42,-3.142 43,-5 45,-5 S 48,-3.142 50,0 S 53,5 55,5 S 58,3.142 60,0" transform="translate(20,60)"/>
     <path d="M 0,0 C 2,-3.142 3,-5 5,-5 S 8,-3.142 10,0 S 13,5 15,5 S 18,3.142 20,0 C 22,-3.142 23,-5 25,-5 S 28,-3.142 30,0 S 33,5 35,5 S 38,3.142 40,0 C 42,-3.142 43,-5 45,-5 S 48,-3.142 50,0 S 53,5 55,5 S 58,3.142 60,0" transform="translate(159.5,60)"/>
   </g>
-  <g stroke="black" stroke-width="1.6">
+  <g fill="none" stroke="black" stroke-width="1.6">
     <g transform="translate(44,75)">
-      <path d="M 0,0 L 12,0" stroke="black" stroke-width="1.6" fill="none"/>
-      <polygon points="12,0 8.8,4 16.8,0 8.8,-4" stroke-width="0" fill="black"/>
+      <path d="M 0,0 L 12,0"/>
+      <polygon points="12,0 8.8,4 16.8,0 8.8,-4" fill="black" stroke-width="0"/>
     </g>
     <g transform="translate(184,75)">
-      <path d="M 0,0 L 12,0" stroke="black" stroke-width="1.6" fill="none"/>
-      <polygon points="12,0 8.8,4 16.8,0 8.8,-4" stroke-width="0" fill="black"/>
+      <path d="M 0,0 L 12,0"/>
+      <polygon points="12,0 8.8,4 16.8,0 8.8,-4" fill="black" stroke-width="0"/>
     </g>
   </g>
-  <g stroke="black" stroke-width="0" fill="black" font-family="serif" font-size="15" font-style="italic" text-anchor="middle">
+  <g fill="black" stroke="black" stroke-width="0" font-family="Georgia" font-size="15" font-style="italic" text-anchor="middle">
     <text x="10" y="60">
       <tspan>&#956;</tspan>
     </text>
