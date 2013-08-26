@@ -7,8 +7,9 @@
 <meta name="keywords" content="Feynman diagrams, jQuery, SVG"/>
 <meta name="description" content="An extension package allows you to draw Feynman diagrams with SVG using the standard jQuery syntax."/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0.25,user-scalable=yes"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
 <script src="js/jquery-2.0.2.min.js"></script>
-<script src="js/jquery.feyn-0.1.4.min.js"></script>
+<script src="js/jquery.feyn-0.1.5.min.js"></script>
 <script>
   $(document).ready(function() {
     $('#aurora').feyn({
@@ -61,8 +62,8 @@
         x = Math.round(e.pageX - offset.left),
         y = Math.round(e.pageY - offset.top);
       $('svg .feyn_coord').remove();
-      $(this).children('svg').append('<text class="feyn_coord" x="' + x
-        + '" y="' + y + '" font-size="8">' + x  + ',' + y + '</text>');
+      $(this).children('svg').append('<text class="feyn_coord" x="' + x +
+        '" y="' + y + '" font-size="8">' + x  + ',' + y + '</text>');
       $(this).html($(this).html());
       return false;
     });
@@ -95,9 +96,8 @@
   <a href="http://image.online-convert.com/">Image Converter</a>
 </div>
 <address style="margin:1em 0;">
-  Copyright &copy; 2013 by
-  <a href="https://github.com/photino">Zan Pan</a> released under the
-  <a href="LICENSE.txt">MIT license</a>
+  Copyright &copy; 2013 by <a href="https://github.com/photino">Zan Pan</a> 
+  released under the <a href="LICENSE.txt">MIT license</a>
 </address>
 </footer>
 

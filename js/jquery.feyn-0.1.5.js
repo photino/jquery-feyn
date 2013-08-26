@@ -1,8 +1,8 @@
-/* jQuery.Feyn.js, version 0.1.4, MIT License
+/* jQuery.Feyn.js, version 0.1.5, MIT License
  * Plugin for drawing Feynman diagrams with SVG
  *
  * Author: Zan Pan <panzan89@gmail.com>
- * Date: 2013-8-10
+ * Date: 2013-8-26
  *
  * Useage: $(container).feyn(options);
 */
@@ -70,7 +70,7 @@ var Feyn = function(container, options) {
     gluon: {width: 15, height: 15, factor: 0.75, percent: 0.6, scale: 1.15},
     symbol: {},
     node: {show: false, thickness: 1, radius: 3, type: 'dot', fill: 'white'},
-    label: {family: 'serif', size: 15, face: 'italic'},
+    label: {family: 'Georgia', size: 15, face: 'italic'},
     image: {},
     ajax: false
   }, options);
@@ -79,12 +79,10 @@ var Feyn = function(container, options) {
   var PI = Math.PI;
 
   // Style of propagator for different particles
-  var all = {color: opts.color, thickness: opts.thickness},
-    sty = {fermion: {},
-      photon: {fill: 'none'},
+  var all = {fill: 'none', color: opts.color, thickness: opts.thickness},
+    sty = {fermion: {}, photon: {}, gluon: {},
       scalar: {dash: opts.scalar.dash, offset: opts.scalar.offset},
-      ghost: {dash: '0.1 ' + opts.ghost.dotsep, offset: opts.ghost.offset},
-      gluon: {fill: 'none'}};
+      ghost: {dash: '0.1 ' + opts.ghost.dotsep, offset: opts.ghost.offset}};
   for(var key in sty) {
     sty[key] = $.extend(true, {}, all, {color: opts[key].color,
       thickness: opts[key].thickness, linecap: 'round'}, sty[key]);
@@ -114,9 +112,8 @@ var Feyn = function(container, options) {
   }
 
   // Style of labels
-  var lb = {sty: {color: opts.label.color || all.color,
-    thickness: opts.label.thickness || 0,
-    fill: opts.label.fill || opts.label.color || all.color,
+  var lb = {sty: {fill: opts.label.fill || opts.label.color || all.color,
+    color: opts.label.color || all.color, thickness: opts.label.thickness || 0,
     family: opts.label.family, size: opts.label.size,
     weight: opts.label.weight, face: opts.label.face,
     align: opts.label.align || 'middle'}, pos: opts.label};
@@ -127,9 +124,8 @@ var Feyn = function(container, options) {
   }
 
   // Collector for SVG elements
-  var svg = {defs: [], body: [],
-    tags: ['line', 'rect', 'circle', 'ellipse', 'path', 'polyline',
-      'polygon', 'image', 'use'],
+  var svg = {defs: [], body: [], tags: ['path', 'line', 'rect',
+    'circle', 'ellipse', 'polygon', 'polyline', 'image', 'use'],
     attr: {xlink: 'xmlns:xlink', href: 'xlink:href',
       color: 'stroke', thickness: 'stroke-width',
       dash: 'stroke-dasharray', linecap: 'stroke-linecap',
@@ -140,7 +136,7 @@ var Feyn = function(container, options) {
   // Create SVG element
   var svgElem = function(elem, attr, sty, child) {
     var str = '';
-    attr = $.extend({}, attr, sty);
+    attr = $.extend(attr, sty);
     for(var key in attr) {
       str += ' ' + (svg.attr[key] || key) + '="' + attr[key] + '"';
     }
@@ -184,14 +180,14 @@ var Feyn = function(container, options) {
       (angle ? ' rotate(' + numStr(angle * 180 / PI) + ')' : '');
   };
 
-  // Get control points
+  // Get coordinates
   var getPoint = function(sx, sy, ex, ey, x, y) {
     var ang = Math.atan2(ey - sy, ex - sx);
     return numStr(x * Math.cos(ang) - y * Math.sin(ang) + sx, ',',
       x * Math.sin(ang) + y * Math.cos(ang) + sy);
   };
 
-  // Set arrows
+  // Set arrows for fermion, scalar, and ghost propagators
   var setArrow = function(par, x, y, angle, name) {
     var t = (par == 'ghost' ? sty.fermion.thickness : sty[par].thickness);
     return opts[par].arrow ? svgElem('polygon', $.extend({points:
@@ -298,25 +294,25 @@ var Feyn = function(container, options) {
   // Get path for gluon propagator
   var gluonPath = function(distance, shape) {
     var kappa = 4 * (Math.SQRT2 - 1) / 3,
-     a = opts.gluon.height * opts.gluon.factor,
-     b = opts.gluon.width * opts.gluon.percent,
-     c = opts.gluon.height * (opts.gluon.factor - 0.5),
-     d = opts.gluon.width * (1 - opts.gluon.percent),
-     dir = opts.gluon.clockwise || opts.clockwise,
-     pts = (dir ? [[0, 0], 'A ' + a + ' ' + b, 0, 0, 1, [a, b], 'A ' +
-       c + ' ' + d, 0, 1, 1, [a - 2 * c, b], 'A ' + a + ' ' + b, 0, 0, 1] :
-       [[0, 0], 'A ' + a + ' ' + b, 0, 0, 0, [a, -b], 'A ' + c + ' ' + d,
-       0, 1, 0, [a - 2 * c, -b], 'A ' + a + ' ' + b, 0, 0, 0]);
-   a = (dir ? a : opts.gluon.scale * a);
-   var lift = a / Math.pow(distance, 0.6),
-     tile = (dir ? ['C', [kappa * a, lift], [a, b - kappa * b], [a, b],
-       'C', [a, b + kappa * d], [a - c + kappa * c, b + d], [a - c, b + d],
-       'S', [a - 2 * c, b + kappa * d], [a - 2 * c, b], 'C', [a - 2 * c,
-       b - kappa * b], [2 * (a - c) - kappa * a, 0], [2 * (a - c), -lift]] :
-       ['C', [kappa * a, lift], [a, -b + kappa * b], [a, -b], 'C', [a,
-       -b - kappa * d], [a - c + kappa * c, -b - d], [a - c, -b - d],
-       'S', [a - 2 * c, -b - kappa * d], [a - 2 * c, -b], 'C', [a - 2 * c,
-       -b + kappa * b], [2 * (a - c) - kappa * a, 0], [2 * (a - c), -lift]]);
+      a = opts.gluon.height * opts.gluon.factor,
+      b = opts.gluon.width * opts.gluon.percent,
+      c = opts.gluon.height * (opts.gluon.factor - 0.5),
+      d = opts.gluon.width * (1 - opts.gluon.percent),
+      dir = opts.gluon.clockwise || opts.clockwise,
+      pts = (dir ? [[0, 0], 'A ' + a + ' ' + b, 0, 0, 1, [a, b], 'A ' +
+        c + ' ' + d, 0, 1, 1, [a - 2 * c, b], 'A ' + a + ' ' + b, 0, 0, 1] :
+        [[0, 0], 'A ' + a + ' ' + b, 0, 0, 0, [a, -b], 'A ' + c + ' ' + d,
+        0, 1, 0, [a - 2 * c, -b], 'A ' + a + ' ' + b, 0, 0, 0]);
+    a = (dir ? a : opts.gluon.scale * a);
+    var lift = a / Math.pow(distance, 0.6),
+      tile = (dir ? ['C', [kappa * a, lift], [a, b - kappa * b], [a, b],
+        'C', [a, b + kappa * d], [a - c + kappa * c, b + d], [a - c, b + d],
+        'S', [a - 2 * c, b + kappa * d], [a - 2 * c, b], 'C', [a - 2 * c,
+        b - kappa * b], [2 * (a - c) - kappa * a, 0], [2 * (a - c), -lift]] :
+        ['C', [kappa * a, lift], [a, -b + kappa * b], [a, -b], 'C', [a,
+        -b - kappa * d], [a - c + kappa * c, -b - d], [a - c, -b - d],
+        'S', [a - 2 * c, -b - kappa * d], [a - 2 * c, -b], 'C', [a - 2 * c,
+        -b + kappa * b], [2 * (a - c) - kappa * a, 0], [2 * (a - c), -lift]]);
     return {line: linePath(pts, opts.gluon.height, distance),
       arc: arcPath('gluon', tile, a - c, distance),
       loop: loopPath('gluon', tile, a - c, distance)}[shape];
@@ -339,7 +335,6 @@ var Feyn = function(container, options) {
   var plotArc = function(sx, sy, ex, ey, par, name) {
     var path = {photon: photonPath, gluon: gluonPath},
       id = setId(name + '_arc'),
-      attr = $.extend({fill: 'none'}, id),
       axis = axisTrans(sx, sy, ex, ey),
       t = 0.5 * Math.max(opts[par].tension || opts.tension, 1),
       f = t - Math.sqrt(Math.abs(t * t - 0.25)),
@@ -350,8 +345,8 @@ var Feyn = function(container, options) {
       dir = opts[par].clockwise || opts.clockwise;
     return par.match(/photon|gluon/) ? [svgElem('path', {d: path[par]
         (w, 'arc'), transform: setTrans(sx, sy, ang)}, id), ''] :
-      [svgElem('path', {d: numStr('M 0,0 A ', t * w, ' ', t * w, ' 0 0 1 ',
-        w, ',0'), transform: setTrans(sx, sy, ang)}, attr),
+      [svgElem('path', {d: numStr('M 0,0 A ', t * w, ' ', t * w,
+        ' 0 0 1 ', w, ',0'), transform: setTrans(sx, sy, ang)}, id),
         setArrow(par, 0.5 * (sx + ex) + hx, 0.5 * (sy + ey) - hy,
           ang + (dir ? PI : 0), name + '_arc_arrow')];
   };
@@ -361,7 +356,6 @@ var Feyn = function(container, options) {
     var path = {photon: photonPath, gluon: gluonPath},
       id = setId(name + '_loop'),
       arrow = name + '_loop_arrow_',
-      attr = $.extend({fill: 'none'}, id),
       axis = axisTrans(sx, sy, ex, ey),
       ratio = opts[par].ratio || opts.ratio,
       w = 0.5 * axis.distance,
@@ -372,7 +366,7 @@ var Feyn = function(container, options) {
     return par.match(/photon|gluon/) ? [svgElem('path', {d: path[par]
         (2 * w, 'loop'), transform: setTrans(sx, sy, ang)}, id), ''] :
       [svgElem('ellipse', {cx: numStr(w), cy: 0, rx: numStr(w),
-        ry: numStr(ratio * w), transform: setTrans(sx, sy, ang)}, attr),
+        ry: numStr(ratio * w), transform: setTrans(sx, sy, ang)}, id),
         setArrow(par, 0.5 * (sx + ex) + hx, 0.5 * (sy + ey) - hy, ang +
           (dir ? PI : 0), arrow + '1') + setArrow(par, 0.5 * (sx + ex) - hx,
           0.5 * (sy + ey) + hy, ang + (dir ? 0 : PI), arrow + '2')];
@@ -403,7 +397,7 @@ var Feyn = function(container, options) {
       }
       elems.push(shape ? svgElem('g', setClass(par), sty[par], shape +
         (opts[par].arrow ? svgElem('g', setClass(par + '_' + 'arrow'),
-        {thickness: 0, fill: sty[par].color}, arrow) : '')) : '');
+        {fill: sty[par].color, thickness: 0}, arrow) : '')) : '');
     }
     return elems.join('');
   };
@@ -411,78 +405,86 @@ var Feyn = function(container, options) {
   // Set symbols
   var setSymbol = function() {
     var style = $.extend({}, all, {color: opts.symbol.color,
-      thickness: opts.symbol.thickness, fill: 'none'}),
+      thickness: opts.symbol.thickness}),
       t = style.thickness,
       h = 0,
       group = '';
+    delete opts.symbol.color;
+    delete opts.symbol.thickness;
     for(var key in opts.symbol) {
-      if(key.match(/color|thickness/)) {
-        continue;
-      }
       var item = opts.symbol[key],
         coord = nd[item[0]] || item[0].replace(/\s/g, '').split(','),
         trans = {transform: setTrans(coord[0], coord[1], item[1] * PI / 180)},
         type = item[2],
         s = item[3],
         p = item[4] || 0,
-        dir = item[5],
+        variant = item[5],
         id = setId(key + '_' + type),
-        pts = ['0,0'];
-      if(type == 'zigzag') {
-        for(var i = 0; i <= 0.5 * s / p; i++) {
-          pts.push(numStr(p * (2 * i + 1), ',', (opts.tension + 0.2) *
-            p * (1 - 2 * (i % 2))), numStr(2 * p * (i + 1), ',0'));
-        }
-      } else if(type == 'arrow') {
+        pts = '0,0';
+      if(type == 'arrow') {
         h = (2 * p > s ? Math.sqrt(p * p - s * s / 4) : (2 * p == s ? 1 : 0));
+      } else if(type == 'zigzag') {
+        for(var i = 0; i <= 0.5 * s / p; i++) {
+          pts += numStr(' ', p * (2 * i + 1), ',', (opts.tension + 0.2) *
+            p * (1 - 2 * (i % 2)), ' ', 2 * p * (i + 1), ',0');
+        }
       }
-      group += {'zigzag': svgElem('polyline',
-          $.extend({points: pts.join(' ')}, trans), $.extend({}, style, id)),
-        arrow: svgElem('g', trans, id, svgElem('path',
+      group += {arrow: svgElem('g', trans, id, svgElem('path',
           {d: (h ? numStr('M 0,0 A ', p, ' ', p, ' 0 0 1 ', s, ',0') :
-          numStr('M 0,0 L ', s, ',0'))}, style) +
-          svgElem('polygon', {points: (h ? (dir ? numStr('0,0 ') +
-          getPoint(0, 0, -2 * h * h / s, h, -2 * t, 2.5 * t) + ' ' +
-          getPoint(0, 0, -2 * h * h / s, h, 3 * t, 0) + ' ' +
-          getPoint(0, 0, -2 * h * h / s, h, -2 * t, -2.5 * t) :
-          numStr(s, ',0 ') + getPoint(s, 0, s + 2 * h * h / s, h, -2 * t,
-          2.5 * t) + ' ' + getPoint(s, 0, s + 2 * h * h / s, h, 3 * t, 0) +
-          ' ' + getPoint(s, 0, s + 2 * h * h / s, h, -2 * t, -2.5 * t)) :
+          numStr('M 0,0 L ', s, ',0'))}, {}) + svgElem('polygon',
+          {points: (h ? (variant ? numStr('0,0 ') + getPoint(0, 0,
+          -2 * h * h / s, h, -2 * t, 2.5 * t) + ' ' + getPoint(0, 0,
+          -2 * h * h / s, h, 3 * t, 0) + ' ' + getPoint(0, 0,
+          -2 * h * h / s, h, -2 * t, -2.5 * t) : numStr(s, ',0 ') +
+          getPoint(s, 0, s + 2 * h * h / s, h, -2 * t, 2.5 * t) + ' ' +
+          getPoint(s, 0, s + 2 * h * h / s, h, 3 * t, 0) + ' ' +
+          getPoint(s, 0, s + 2 * h * h / s, h, -2 * t, -2.5 * t)) :
           numStr(s, ',0 ', s - 2 * t, ',', 2.5 * t, ' ', s + 3 * t, ',0 ',
-          s - 2 * t, ',', -2.5 * t))}, {thickness: 0, fill: style.color})),
-        hadron: svgElem('g', trans, $.extend({}, style, id), svgElem('path',
-          {d: numStr('M 0,0 L ', s, ',0', ' M 0,', p, ' L ', s, ',', p,
-          ' M 0,', -p, ' L ', s, ',', -p)}, {}) + svgElem('polygon',
-          {points: (dir ? numStr(0.5 * s - 1.6 * p, ',', 2 * p, ' ',
-          0.5 * s + 2 * p, ',0 ', 0.5 * s - 1.6 * p, ',', -2 * p) :
-          numStr(s, ',', 2 * p, ' ', s + 3.6 * p, ',0 ', s, ',', -2 * p))},
-          {fill: 'white'})),
-        bubble: svgElem('path', $.extend({d: numStr('M 0,0 C ', p, ',', p, ' ',
-          s, ',', p, ' ', s, ',0 S ', p, ',', -p, ' ', ' 0,0 Z')}, trans),
-          $.extend({}, style, id))}[type];
+          s - 2 * t, ',', -2.5 * t))}, {fill: style.color, thickness: 0})),
+        blob: (variant ? svgElem('path', $.extend({d: numStr('M ', p,
+          ',', -p, ' A ', p, ' ', p, ' 0 1 0 ', p, ',', p, ' L ', 2 * s,
+          ',', p, ' A ', p, ' ', p, ' 0 1 0 ', 2 * s, ',', -p, ' L ', p,
+          ',', -p, ' Z')}, trans), $.extend({fill: 'silver'}, id)) :
+          svgElem('ellipse', $.extend({cx: s, cy: 0, rx: s, ry: p}, trans),
+          $.extend({fill: 'silver'}, id))),
+        bubble: svgElem('path', $.extend({d: numStr('M 0,0 C ', p, ',', p,
+          ' ', s, ',', p, ' ', s, ',0 S ', p, ',', -p, ' 0,0 Z')}, trans), id),
+        hadron: svgElem('g', trans, id, svgElem('path', {d: numStr('M 0,0 L ',
+          s, ',0', ' M 0,', p, ' L ', s, ',', p, ' M 0,', -p, ' L ', s,
+          ',', -p)}, {}) + svgElem('polygon', {points: (variant ?
+          numStr(s, ',', 2 * p, ' ', s + 3.6 * p, ',0 ', s, ',', -2 * p) :
+          numStr(0.5 * s - 1.6 * p, ',', 2 * p, ' ', 0.5 * s + 2 * p, ',0 ',
+          0.5 * s - 1.6 * p, ',', -2 * p))}, {fill: 'white'})),
+        meson: svgElem('g', trans, id, svgElem('path', {d: numStr('M 0,',
+          -0.5 * p, ' L ', s, ',', -0.5 * p, ' M 0,', 0.5 * p, ' L ', s,
+          ',', 0.5 * p)}, {}) + (variant ? '' : svgElem('polygon', {points:
+          numStr(0.5 * s - p, ',', 1.25 * p, ' ', 0.5 * s + 1.25 * p,
+          ',0 ', 0.5 * s - p, ',', -1.25 * p)}, {fill: 'white'}))),
+        zigzag: svgElem('polyline', $.extend({points: pts}, trans), id)}[type];
     }
-    return group ? svgElem('g', setClass('symbol'), all, group) : '';
+    return group ? svgElem('g', setClass('symbol'), style, group) : '';
   };
 
   // Set graph nodes
   var setNode = function() {
     var show = (opts.node.show === true ? 'iova' : opts.node.show),
       type = opts.node.type,
-      style = $.extend({}, all, {color: opts.node.color,
-        thickness: opts.node.thickness, fill: opts.node.fill}),
+      style = $.extend({}, all, {fill: opts.node.fill,
+        color: opts.node.color, thickness: opts.node.thickness}),
       nr = opts.node.radius + style.thickness,
-      a = nr / Math.SQRT2 - style.thickness,
-      cross = numStr('M ', -a, ',', -a, ' L ', a, ',', a,
-        ' M ', -a, ',', a, ' L ', a, ',', -a),
+      a = nr / Math.SQRT2 - (type == 'cross' ? 0 : style.thickness),
       group = '';
     for(var key in nd) {
       if(show.indexOf(key.charAt(0)) >= 0) {
         var id = setId(key + '_' + type),
           x = +nd[key][0],
-          y = +nd[key][1];
-        group += {dot: svgElem('circle', {cx: x, cy: y, r: nr}, id), otimes:
-          svgElem('g', {}, id, svgElem('circle', {cx: x, cy: y, r: nr}) +
-          svgElem('path', {d: cross, transform: setTrans(x, y, 0)}))}[type];
+          y = +nd[key][1],
+          path = {d: numStr('M ', -a, ',', -a, ' L ', a, ',', a, ' M ', -a,
+            ',', a, ' L ', a, ',', -a) , transform: setTrans(x, y, 0)};
+        group += {cross: svgElem('path', path, id),
+          dot: svgElem('circle', {cx: x, cy: y, r: nr}, id),
+          otimes: svgElem('g', {}, id, svgElem('circle',
+            {cx: x, cy: y, r: nr}) + svgElem('path', path))}[type];
       }
     }
     return group ? svgElem('g', setClass('node'), style, group) : '';
@@ -498,17 +500,15 @@ var Feyn = function(container, options) {
       sub = str.indexOf('_') + 1,
       ind = (sup ? sup : sub),
       hx = -0.15 * font,
-      vy = 0.4 * font,
-      content = '';
-    content += (head.match(/-|~/) ? svgElem('tspan', {dx: numStr('0 ', 4 * hx),
-      dy: numStr(-vy, ' ', vy)}, {}, (head == '-' ? '&#8211;' : head) +
-      (ind ? str.slice(1, ind - 1) : str.slice(1))) :
-      svgElem('tspan', {}, {}, (ind ? str.slice(0, ind - 1) : str.slice(0))));
-    content += (sup ? svgElem('tspan', {dx: numStr(hx), dy: numStr(-vy)},
-      {size: small}, (sub ? str.slice(sup, sub - 1) : str.slice(sup))) : '');
-    content += (sub ? svgElem('tspan', {dx: numStr((sup ? 5 : 1) * hx),
-      dy: numStr((sup ? 2 : 1) * vy)}, {size: small}, str.slice(sub)) : '');
-    return content;
+      vy = 0.4 * font;
+    return (head.match(/-|~/) ? svgElem('tspan', {dx: numStr('0 ', 4 * hx),
+        dy: numStr(-vy, ' ', vy)}, {}, (head == '-' ? '&#8211;' : head) +
+        (ind ? str.slice(1, ind - 1) : str.slice(1))) : svgElem('tspan',
+        {}, {}, (ind ? str.slice(0, ind - 1) : str.slice(0)))) +
+      (sup ? svgElem('tspan', {dx: numStr(hx), dy: numStr(-vy)}, {size: small},
+        (sub ? str.slice(sup, sub - 1) : str.slice(sup))) : '') +
+      (sub ? svgElem('tspan', {dx: numStr((sup ? 5 : 1) * hx),
+        dy: numStr((sup ? 2 : 1) * vy)}, {size: small}, str.slice(sub)) : '');
   };
 
   // Set annotation labels
@@ -569,9 +569,9 @@ var Feyn = function(container, options) {
       svg.defs.push(svgElem('pattern', {x: 0, y: 0, width: u, height: u,
         viewBox: '0 0 ' + u + ' ' + u}, {patternUnits: 'userSpaceOnUse',
         id: Feyn.prefix + '_grid'}, svgElem('polyline', {points:
-        u + ',0 0,0 0,' + u}, {color: 'silver', fill: 'none'})));
+        u + ',0 0,0 0,' + u}, {fill: 'none', color: 'silver'})));
       svg.body.push(svgElem('rect', {x: 0, y: 0, width: '100%', height: '100%'},
-        {color: 'silver', fill: 'url(#' + Feyn.prefix + '_grid)'}));
+        {fill: 'url(#' + Feyn.prefix + '_grid)', color: 'silver'}));
     }
 
     // Show graph edges and symbols
