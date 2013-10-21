@@ -1,8 +1,8 @@
-/* jQuery.Feyn.js, version 0.1.5, MIT License
+/* jQuery.Feyn.js, version 0.2.0, MIT License
  * Plugin for drawing Feynman diagrams with SVG
  *
  * Author: Zan Pan <panzan89@gmail.com>
- * Date: 2013-8-26
+ * Date: 2013-10-21
  *
  * Useage: $(container).feyn(options);
 */
@@ -136,7 +136,7 @@ var Feyn = function(container, options) {
   // Create SVG element
   var svgElem = function(elem, attr, sty, child) {
     var str = '';
-    attr = $.extend(attr, sty);
+    attr = $.extend({}, attr, sty);
     for(var key in attr) {
       str += ' ' + (svg.attr[key] || key) + '="' + attr[key] + '"';
     }
@@ -431,7 +431,7 @@ var Feyn = function(container, options) {
       }
       group += {arrow: svgElem('g', trans, id, svgElem('path',
           {d: (h ? numStr('M 0,0 A ', p, ' ', p, ' 0 0 1 ', s, ',0') :
-          numStr('M 0,0 L ', s, ',0'))}, {}) + svgElem('polygon',
+          numStr('M 0,0 L ', s, ',0'))}) + svgElem('polygon',
           {points: (h ? (variant ? numStr('0,0 ') + getPoint(0, 0,
           -2 * h * h / s, h, -2 * t, 2.5 * t) + ' ' + getPoint(0, 0,
           -2 * h * h / s, h, 3 * t, 0) + ' ' + getPoint(0, 0,
@@ -449,15 +449,19 @@ var Feyn = function(container, options) {
           $.extend({fill: 'silver'}, id))),
         bubble: svgElem('path', $.extend({d: numStr('M 0,0 C ', p, ',', p,
           ' ', s, ',', p, ' ', s, ',0 S ', p, ',', -p, ' 0,0 Z')}, trans), id),
+        condensate: svgElem('g', trans, $.extend({fill: 'black'}, id),
+          svgElem('rect', {x: -0.5 * s, y: -p, width: s, height: 2 * p},
+          {fill: 'white', thickness: 0}) + svgElem('circle', {cx: -0.5 * s,
+          cy: 0, r: p}) + svgElem('circle', {cx: 0.5 * s, cy: 0, r: p})),
         hadron: svgElem('g', trans, id, svgElem('path', {d: numStr('M 0,0 L ',
           s, ',0', ' M 0,', p, ' L ', s, ',', p, ' M 0,', -p, ' L ', s,
-          ',', -p)}, {}) + svgElem('polygon', {points: (variant ?
+          ',', -p)}) + svgElem('polygon', {points: (variant ?
           numStr(s, ',', 2 * p, ' ', s + 3.6 * p, ',0 ', s, ',', -2 * p) :
           numStr(0.5 * s - 1.6 * p, ',', 2 * p, ' ', 0.5 * s + 2 * p, ',0 ',
           0.5 * s - 1.6 * p, ',', -2 * p))}, {fill: 'white'})),
         meson: svgElem('g', trans, id, svgElem('path', {d: numStr('M 0,',
           -0.5 * p, ' L ', s, ',', -0.5 * p, ' M 0,', 0.5 * p, ' L ', s,
-          ',', 0.5 * p)}, {}) + (variant ? '' : svgElem('polygon', {points:
+          ',', 0.5 * p)}) + (variant ? '' : svgElem('polygon', {points:
           numStr(0.5 * s - p, ',', 1.25 * p, ' ', 0.5 * s + 1.25 * p,
           ',0 ', 0.5 * s - p, ',', -1.25 * p)}, {fill: 'white'}))),
         zigzag: svgElem('polyline', $.extend({points: pts}, trans), id)}[type];
