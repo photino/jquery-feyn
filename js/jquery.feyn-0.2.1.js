@@ -1,8 +1,8 @@
-/* jQuery.Feyn.js, version 0.2.0, MIT License
+/* jQuery.Feyn.js, version 0.2.1, MIT License
  * Plugin for drawing Feynman diagrams with SVG
  *
  * Author: Zan Pan <panzan89@gmail.com>
- * Date: 2013-10-21
+ * Date: 2013-10-31
  *
  * Useage: $(container).feyn(options);
 */
@@ -72,6 +72,7 @@ var Feyn = function(container, options) {
     node: {show: false, thickness: 1, radius: 3, type: 'dot', fill: 'white'},
     label: {family: 'Georgia', size: 15, face: 'italic'},
     image: {},
+    mathjax: false,
     ajax: false
   }, options);
 
@@ -141,8 +142,8 @@ var Feyn = function(container, options) {
       str += ' ' + (svg.attr[key] || key) + '="' + attr[key] + '"';
     }
     return '<' + elem + str + (svg.tags.indexOf(elem) >= 0 ? '/>' :
-      '>' + (elem.match(/title|desc|tspan/) ? '': '\n') + (child ?
-      child.replace(/</g, '  <').replace(/\s+<\/(title|desc|tspan)/g, '</$1') :
+      '>' + (elem.match(/title|desc|tspan|body/) ? '': '\n') + (child ?
+      child.replace(/</g, '  <').replace(/\s+<\/(title|desc|tspan|body)/g, '</$1') :
       '') + '</' + elem + '>') + '\n';
   };
 
@@ -517,12 +518,18 @@ var Feyn = function(container, options) {
 
   // Set annotation labels
   var setLabel = function() {
-    var group = '';
+    var group = '',
+      size = lb.sty.size * 2,
+      xhtml = 'http://www.w3.org/1999/xhtml';
     for(var key in lb.pos) {
       var item = lb.pos[key],
-        coord = nd[item[0]] || item[0].replace(/\s/g, '').split(',');
-      group += svgElem('text', {x: numStr(coord[0]), y: numStr(coord[1])},
-        setId(key), formatStr(item[1]));
+        coord = nd[item[0]] || item[0].replace(/\s/g, '').split(','),
+        attr = {x: numStr(coord[0]), y: numStr(coord[1])},
+        id = setId(key);
+      group += (opts.mathjax ? svgElem('foreignObject', $.extend({}, attr,
+        {'width': size * 0.6, 'height': size, 'requiredExtensions': xhtml}), id,
+        svgElem('body', {'xmlns': xhtml}, {}, item[1])) :
+        svgElem('text', attr, id, formatStr(item[1])));
     }
     return group ? svgElem('g', setClass('label'), lb.sty, group) : '';
   };
