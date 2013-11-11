@@ -51,7 +51,7 @@
   ghost: {arrow: true, thickness: 3, dotsep: 8, offset: 5},
   gluon: {width: 15, height: 15, factor: 0.75, percent: 0.6, scale: 1.15},
   symbol: {},
-  node: {show: false, thickness: 1, radius: 3, type: 'dot', fill: 'white'},
+  node: {show: false, thickness: 1, type: 'dot', radius: 3, fill: 'white'},
   label: {family: 'Georgia', size: 15, face: 'italic'},
   image: {},
   mathjax: false,
@@ -395,7 +395,7 @@
           <dd>Set the coordinates of graph nodes for symbol</dd>
           <dt><strong>sn[1]</strong> : <code>Number (angle)</code></dt>
           <dd>Set the x-axis-rotation angle for symbol</dd>
-          <dt><strong>sn[2]</strong> : <code>String ('arrow' | 'blob' | 'bubble' | 'condensate' | 'hadron' | 'meson' | 'zigzag')</code></dt>
+          <dt><strong>sn[2]</strong> : <code>String ('arrow' | 'blob' | 'bubble' | 'condensate' | 'hadron' | 'zigzag')</code></dt>
           <dd>Set the symbol type</dd>
           <dt><strong>sn[3]</strong> : <code>Number (parameter | <strong>20</strong>)</code></dt>
           <dd>Set the distance parameter for the symbol</dd>
@@ -421,11 +421,11 @@
       <dt><strong>show</strong> : <code>Boolean | String (<strong>false</strong> | 'i' | 'o' | 'v' | 'a' | ... | 'iova')</code></dt>
       <dd>Determine whether or not to show nodes
       </dd>
+      <dt><strong>type</strong> : <code>String ('box' | 'boxtimes' | 'cross' | <strong>'dot'</strong> | 'otimes')</code></dt>
+      <dd>Set the node type
+      </dd>
       <dt><strong>radius</strong> : <code>Number (length | <strong>3</strong>)</code></dt>
       <dd>Set the radius parameter of nodes
-      </dd>
-      <dt><strong>type</strong> : <code>String ('cross' | <strong>'dot'</strong> | 'otimes')</code></dt>
-      <dd>Set the node type
       </dd>
       <dt><strong>fill</strong> : <code>String (paint | <strong>'white'</strong>)</code></dt>
       <dd>Set the <code>fill</code> attribute for <code>&lt;g&gt;</code>
@@ -475,7 +475,11 @@
           <dt><strong>tn[0]</strong> : <code>String (position)</code></dt>
           <dd>Set the coordinates of graph nodes for label</dd>
           <dt><strong>tn[1]</strong> : <code>String (text)</code></dt>
-          <dd>Set the text of label as the content of <code>&lt;tspan&gt;</code></dd>
+          <dd>Set the text of label as the content of <code>&lt;tspan&gt;</code> or <code>&lt;foreignObject&gt;</code></dd>
+          <dt><strong>tn[2]</strong> : <code>Number (length | <strong>18</strong>)</code></dt>
+          <dd>Set the <code>width</code> attribute for <code>&lt;foreignObject&gt;</code></dd>
+          <dt><strong>tn[3]</strong> : <code>Number (length | <strong>30</strong>)</code></dt>
+          <dd>Set the <code>height</code> attribute for <code>&lt;foreignObject&gt;</code></dd>
         </dl>
       </dd>
     </dl>

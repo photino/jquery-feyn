@@ -85,7 +85,8 @@ article dl {
 }
 
 article dd {
-  margin: 0 0 0.5em 2em;
+  margin: 0 0 0.5em 1.5em;
+  text-align: left;
 }
 
 footer {

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html id="examples/qcd_rules" lang="en-us">
+
+<head>
+<meta charset="utf-8"/>
+<title>Feynman Rules for the QCD Lagrangian | jQuery.Feyn</title>
+<meta name="keywords" content="Gluon propagator, fermion propagator, ghost propagator, quark-gluon vertex, ghost-gluon vertex, three-gluon vertex, four-gluon vertex"/>
+<meta name="description" content="Usage of jQuery.Feyn for darwing Feynman rules for the QCD Lagrangian"/>
+<link rel="stylesheet" media="all" href="../css/normalize.css"/>
+<link rel="stylesheet" media="all" href="../css/default.css"/>
+<script src="../js/jquery.js"></script>
+<script src="../js/jdom.js"></script>
+<script src="../js/jquery.feyn.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ['input/TeX','output/HTML-CSS'],
+    messageStyle: 'none',
+    tex2jax: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    $('#gluon').feyn({
+      description: 'Gluon propagator for QCD',
+      width: 490,
+      height: 70,
+      incoming: {i1: '45,40'},
+      outgoing: {o1: '165,40'},
+      gluon: {line: 'i1-o1'},
+      label: {t1: ['10,25', '$b,\\nu$', 30], t2: ['170,25', '$a,\\mu$', 30],
+        t3: ['100,40', '$p$', 10], t4: ['225,10', '$=\\dfrac{-i\\delta^{ab}}{p^2-i\\epsilon}\\left(\\eta^{\\mu\\nu}-(1-\\xi)\\dfrac{p^{\\mu}p^{\\nu}}{p^2}\\right)$', 260, 70]},
+      mathjax: true
+    });
+    $('#fermion').feyn({
+      description: 'Fermion propagator for QCD',
+      width: 400,
+      height: 70,
+      incoming: {i1: '45,35'},
+      outgoing: {o1: '165,35'},
+      fermion: {line: 'i1-o1'},
+      label: {t1: ['10,25', '$j,\\beta$', 30], t2: ['170,25', '$i,\\alpha$', 30],
+        t3: ['100,40', '$p$', 10], t4: ['225,10', '$=\\dfrac{-i\\delta_{ij}(m-\\gamma\\cdot p)_{\\alpha\\beta}}{p^2+m^2-i\\epsilon}$', 170, 70]},
+      mathjax: true
+    });
+    $('#ghost').feyn({
+      description: 'Ghost propagator for QCD',
+      width: 280,
+      height: 70,
+      incoming: {i1: '25,35'},
+      outgoing: {o1: '145,35'},
+      ghost: {line: 'i1-o1'},
+      label: {t1: ['5,25', '$b$'], t2: ['145,25', '$a$'],
+        t3: ['80,40', '$p$', 10], t4: ['185,10', '$=\\dfrac{-i\\delta^{ab}}{p^2-i\\epsilon}$', 80, 70]},
+      mathjax: true
+    });
+    $('#quark_gluon').feyn({
+      description: 'Quark-gluon vertex for QCD',
+      width: 360,
+      height: 160,
+      incoming: {i1: '45,130', i2: '105,30'},
+      outgoing: {o1: '165,130'},
+      vertex: {v1: '105,90'},
+      fermion: {line: 'i1-v1-o1'},
+      gluon: {line: 'v1-i2'},
+      node: {show: 'v', type: 'dot', fill: 'black', radius: 2},
+      label: {t1: ['10,130', '$j,\\beta$', 30], t2: ['170,130', '$i,\\alpha$', 30],
+        t3: ['90,5', '$a,\\mu$', 30], t4: ['225,70', '$=ig(\\gamma^{\\mu})_{\\alpha\\beta}(t^a)_{ij}$', 130]},
+      mathjax: true
+    });
+    $('#ghost_gluon').feyn({
+      description: 'Ghost-gluon vertex for QCD',
+      width: 280,
+      height: 160,
+      incoming: {i1: '25,130', i2: '85,30'},
+      outgoing: {o1: '145,130'},
+      vertex: {v1: '85,90'},
+      ghost: {line: 'i1-v1-o1'},
+      gluon: {line: 'v1-i2'},
+      node: {show: 'v', type: 'dot', fill: 'black', radius: 2},
+      label: {t1: ['5,130', '$b$'], t2: ['145,130', '$a$'],
+        t3: ['70,5', '$c,\\mu$', 30], t4: ['100,110', '$p$'],
+        t5: ['185,70', '$=gf^{abc}p^{\\mu}$', 80]},
+      mathjax: true
+    });
+    $('#three_gluon').feyn({
+      description: 'Three-gluon vertex for QCD',
+      width: 620,
+      height: 140,
+      incoming: {i1: '40,120', i2: '155,120', i3: '100,30'},
+      vertex: {v1: '100,90'},
+      gluon: {line: 'v1-i1,v1-i2,v1-i3'},
+      node: {show: 'v', type: 'dot', fill: 'black', radius: 2},
+      label: {t1: ['10,110', '$b,\\nu$', 30], t2: ['160,110', '$c,\\rho$', 30],
+        t3: ['85,5', '$a,\\mu$', 30], t4: ['100,50', '$k$'],
+        t5: ['55,85', '$p$'], t6: ['115,105', '$q$'],
+        t7: ['210,60', '$=-gf^{abc}\\big[\\eta^{\\mu\\nu}(k-p)^{\\rho}+\\eta^{\\nu\\rho}(p-q)^{\\mu}+\\eta^{\\rho\\mu}(q-k)^{\\nu}\\big]$', 410]},
+      mathjax: true
+    });
+    $('#four_gluon').feyn({
+      description: 'Four-gluon vertex for QCD',
+      width: 480,
+      height: 140,
+      incoming: {i1: '40,120', i2: '140,120', i3: '40,20', i4: '140,20'},
+      vertex: {v1: '90,70'},
+      gluon: {line: 'v1-i1,v1-i2,v1-i3,v1-i4'},
+      node: {show: 'v', type: 'dot', fill: 'black', radius: 2},
+      label: {t1: ['10,110', '$c,\\rho$', 30], t2: ['140,110', '$d,\\sigma$', 30],
+        t3: ['15,10', '$b,\\nu$', 30], t4: ['140,10', '$a,\\mu$', 30],
+        t5: ['190,15', '\\[\\begin{split}=-ig^2\\big[&\\!f^{abe}f^{cde}(\\eta^{\\mu\\rho}\\eta^{\\nu\\sigma}-\\eta^{\\mu\\sigma}\\eta^{\\nu\\rho})\\\\+&\\!f^{ace}f^{bde}(\\eta^{\\mu\\nu}\\eta^{\\rho\\sigma}-\\eta^{\\mu\\sigma}\\eta^{\\nu\\rho})\\\\+&\\!f^{ade}f^{bce}(\\eta^{\\mu\\nu}\\eta^{\\rho\\sigma}-\\eta^{\\mu\\rho}\\eta^{\\nu\\sigma})\\big]\\end{split}\\]', 290, 100]},
+      mathjax: true
+    });
+  });
+</script>
+</head>
+
+<body>
+
+<header><!-- Load "../index.html #index_header" --></header>
+<nav><!-- Load "../index.html #index_nav" --></nav>
+
+<article>
+<section>
+<h3>Feynman Rules for the QCD Lagrangian</h3>
+<pre><code>{
+  description: 'Gluon propagator for QCD',
+  width: 490,
+  height: 70,
+  incoming: {i1: '45,40'},
+  outgoing: {o1: '165,40'},
+  gluon: {line: 'i1-o1'},
+  label: {t1: ['10,25', '$b,\\nu$', 30], t2: ['165,25', '$a,\\mu$', 40],
+    t3: ['100,40', '$p$', 10], t4: ['225,10', '$=\\dfrac{-i\\delta^{ab}}{p^2-i\\epsilon}\\left(\\eta^{\\mu\\nu}-(1-\\xi)\\dfrac{p^{\\mu}p^{\\nu}}{p^2}\\right)$', 260, 70]},
+  mathjax: true
+}
+</code></pre>
+<figure>
+  <div id="gluon"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.1</span> Gluon propagator for QCD
+    (<a href="eps/qcd_gluon.eps">EPS</a>,
+    <a href="pdf/qcd_gluon.pdf">PDF</a>)
+  </figcaption>
+</figure>
+
+<pre><code>{
+  description: 'Fermion propagator for QCD',
+  width: 400,
+  height: 70,
+  incoming: {i1: '45,35'},
+  outgoing: {o1: '165,35'},
+  fermion: {line: 'i1-o1'},
+  label: {t1: ['10,25', '$j,\\beta$', 30], t2: ['170,25', '$i,\\alpha$', 30],
+    t3: ['100,40', '$p$', 10], t4: ['225,10', '$=\\dfrac{-i\\delta_{ij}(m-\\gamma\\cdot p)_{\\alpha\\beta}}{p^2+m^2-i\\epsilon}$', 170, 70]},
+  mathjax: true
+}
+</code></pre>
+<figure>
+  <div id="fermion"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.2</span> Fermion propagator for QCD
+    (<a href="eps/qcd_fermion.eps">EPS</a>,
+    <a href="pdf/qcd_fermion.pdf">PDF</a>)
+  </figcaption>
+</figure>
+
+<pre><code>{
+  description: 'Ghost propagator for QCD',
+  width: 280,
+  height: 70,
+  incoming: {i1: '25,35'},
+  outgoing: {o1: '145,35'},
+  ghost: {line: 'i1-o1'},
+  label: {t1: ['5,25', '$b$'], t2: ['145,25', '$a$'],
+    t3: ['80,40', '$p$', 10], t4: ['185,10', '$=\\dfrac{-i\\delta^{ab}}{p^2-i\\epsilon}$', 80, 70]},
+  mathjax: true
+}
+</code></pre>
+<figure>
+  <div id="ghost"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.3</span> Ghost propagator for QCD
+    (<a href="eps/qcd_ghost.eps">EPS</a>,
+    <a href="pdf/qcd_ghost.pdf">PDF</a>)
+  </figcaption>
+</figure>
+
+<pre><code>{
+  description: 'Quark-gluon vertex for QCD',
+  width: 360,
+  height: 160,
+  incoming: {i1: '45,130', i2: '105,30'},
+  outgoing: {o1: '165,130'},
+  vertex: {v1: '105,90'},
+  fermion: {line: 'i1-v1-o1'},
+  gluon: {line: 'v1-i2'},
+  node: {show: 'v', type: 'dot', fill: 'black', radius: 2},
+  label: {t1: ['10,130', '$j,\\beta$', 30], t2: ['170,130', '$i,\\alpha$', 30],
+    t3: ['90,5', '$a,\\mu$', 30], t4: ['225,70', '$=ig(\\gamma^{\\mu})_{\\alpha\\beta}(t^a)_{ij}$', 130]},
+  mathjax: true
+}
+</code></pre>
+<figure>
+  <div id="quark_gluon"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.4</span> Quark-gluon vertex for QCD
+    (<a href="eps/qcd_qgv.eps">EPS</a>,
+    <a href="pdf/qcd_qgv.pdf">PDF</a>)
+  </figcaption>
+</figure>
+
+<pre><code>{
+  description: 'Ghost-gluon vertex for QCD',
+  width: 280,
+  height: 160,
+  incoming: {i1: '25,130', i2: '85,30'},
+  outgoing: {o1: '145,130'},
+  vertex: {v1: '85,90'},
+  ghost: {line: 'i1-v1-o1'},
+  gluon: {line: 'v1-i2'},
+  node: {show: 'v', type: 'dot', fill: 'black', radius: 2},
+  label: {t1: ['5,130', '$b$'], t2: ['145,130', '$a$'],
+    t3: ['70,5', '$c,\\mu$', 30], t4: ['100,110', '$p$'],
+    t5: ['185,70', '$=gf^{abc}p^{\\mu}$', 80]},
+  mathjax: true
+}
+</code></pre>
+<figure>
+  <div id="ghost_gluon"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.5</span> Ghost-gluon vertex for QCD
+    (<a href="eps/qcd_ggv.eps">EPS</a>,
+    <a href="pdf/qcd_ggv.pdf">PDF</a>)
+  </figcaption>
+</figure>
+
+<pre><code>{
+  description: 'Three-gluon vertex for QCD',
+  width: 620,
+  height: 140,
+  incoming: {i1: '40,120', i2: '155,120', i3: '100,30'},
+  vertex: {v1: '100,90'},
+  gluon: {line: 'v1-i1,v1-i2,v1-i3'},
+  node: {show: 'v', type: 'dot', fill: 'black', radius: 2},
+  label: {t1: ['10,110', '$b,\\nu$', 30], t2: ['160,110', '$c,\\rho$', 30],
+    t3: ['85,5', '$a,\\mu$', 30], t4: ['100,50', '$k$'],
+    t5: ['55,85', '$p$'], t6: ['115,105', '$q$'],
+    t7: ['210,60', '$=-gf^{abc}\\big[\\eta^{\\mu\\nu}(k-p)^{\\rho}+\\eta^{\\nu\\rho}(p-q)^{\\mu}+\\eta^{\\rho\\mu}(q-k)^{\\nu}\\big]$', 410]},
+  mathjax: true
+}
+</code></pre>
+<figure>
+  <div id="three_gluon"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.6</span> Three-gluon vertex for QCD
+    (<a href="eps/qcd_3gv.eps">EPS</a>,
+    <a href="pdf/qcd_3gv.pdf">PDF</a>)
+  </figcaption>
+</figure>
+
+<pre><code>{
+  description: 'Four-gluon vertex for QCD',
+  width: 480,
+  height: 140,
+  incoming: {i1: '40,120', i2: '140,120', i3: '40,20', i4: '140,20'},
+  vertex: {v1: '90,70'},
+  gluon: {line: 'v1-i1,v1-i2,v1-i3,v1-i4'},
+  node: {show: 'v', type: 'dot', fill: 'black', radius: 2},
+  label: {t1: ['10,110', '$c,\\rho$', 30], t2: ['140,110', '$d,\\sigma$', 30],
+    t3: ['15,10', '$b,\\nu$', 30], t4: ['140,10', '$a,\\mu$', 30],
+    t5: ['190,15', '\\[\\begin{split}=-ig^2\\big[&\\!f^{abe}f^{cde}(\\eta^{\\mu\\rho}\\eta^{\\nu\\sigma}-\\eta^{\\mu\\sigma}\\eta^{\\nu\\rho})\\\\+&\\!f^{ace}f^{bde}(\\eta^{\\mu\\nu}\\eta^{\\rho\\sigma}-\\eta^{\\mu\\sigma}\\eta^{\\nu\\rho})\\\\+&\\!f^{ade}f^{bce}(\\eta^{\\mu\\nu}\\eta^{\\rho\\sigma}-\\eta^{\\mu\\rho}\\eta^{\\nu\\sigma})\\big]\\end{split}\\]', 290, 100]},
+  mathjax: true
+}
+</code></pre>
+<figure>
+  <div id="four_gluon"><!-- Insert Feynman diagram here --></div>
+  <figcaption><span>Fig.7</span> Four-gluon vertex for QCD
+    (<a href="eps/qcd_4gv.eps">EPS</a>,
+    <a href="pdf/qcd_4gv.pdf">PDF</a>)
+  </figcaption>
+</figure>
+
+</section>
+</article>
+
+<footer><!-- Load "../index.html #index_footer" --></footer>
+
+</body>
+
+</html>
+

@@ -1,8 +1,8 @@
-/* jQuery.Feyn.js, version 0.2.3, MIT License
+/* jQuery.Feyn.js, version 0.2.4, MIT License
  * plugin for drawing Feynman diagrams with SVG
  *
  * author: Zan Pan <panzan89@gmail.com>
- * date: 2013-11-7
+ * date: 2013-11-11
  *
  * useage: $(container).feyn(options);
 */
@@ -94,9 +94,9 @@ var Feyn = function(container, options) {
       symbol: {}, // elements for symbols
       node: {
         show: false, // don't show nodes
-        thickness: 1, // the radius parameter of nodes
-        radius: 3, // the radius parameter of nodes
+        thickness: 1, // the "stroke-width" attribute for <g> into which nodes are grouped
         type: 'dot', // the node type
+        radius: 3, // the radius parameter of nodes
         fill: 'white' // the "fill" attribute for <g> into which nodes are grouped
       },
       label: {
@@ -628,13 +628,6 @@ var Feyn = function(container, options) {
             s + 3.6 * p, ',0', s, ',', -2 * p) : normalize(0.5 * s - 1.6 * p,
             ',', 2 * p, 0.5 * s + 2 * p, ',0', 0.5 * s - 1.6 * p, ',', -2 * p))},
             {fill: 'white'})),
-        // the meson symbol needs the distance parameter and the height parameter
-        meson: create('g', trans, id, create('path', {d: normalize('M 0,',
-            -0.5 * p, 'L', s, ',', -0.5 * p, 'M 0,', 0.5 * p, 'L', s,
-            ',', 0.5 * p)}) + (variant ? '' : 
-          create('polygon', {points: normalize(0.5 * s - p, ',', 1.25 * p,
-            0.5 * s + 1.25 * p, ',0', 0.5 * s - p, ',', -1.25 * p)},
-            {fill: 'white'}))),
         // the zigzag symbol needs the distance parameter and the height parameter
         zigzag: create('polyline', $.extend({points: pts}, trans), id)
       }[type];
@@ -659,15 +652,19 @@ var Feyn = function(container, options) {
         var id = setId(key + '_' + type),
           x = +nd[key][0],
           y = +nd[key][1],
+          square = {x: x - nr, y: y - nr, width: 2 * nr, height: 2 * nr},
+          circle = {cx: x, cy: y, r: nr},
           path = {d: normalize('M', -a, ',', -a, 'L', a, ',', a, 'M', -a,
             ',', a, 'L', a, ',', -a) , transform: transform(x, y, 0)};
         // support three node types: cross, dot, and otimes
         group += {
+          box: create('rect', square, id),
+          boxtimes: create('g', {}, id,
+            create('rect', square) + create('path', path)),
           cross: create('path', path, id),
-          dot: create('circle', {cx: x, cy: y, r: nr}, id),
+          dot: create('circle', circle, id),
           otimes: create('g', {}, id,
-            create('circle', {cx: x, cy: y, r: nr}) +
-            create('path', path))
+            create('circle', circle) + create('path', path))
         }[type];
       }
     }
@@ -699,8 +696,7 @@ var Feyn = function(container, options) {
   // set annotation labels
   var setLabel = function() {
     var group = '',
-      size = lb.sty.size * 2,
-      xhtml = 'http://www.w3.org/1999/xhtml';
+      size = lb.sty.size * 2;
     for(var key in lb.pos) {
       var item = lb.pos[key],
         coord = position(item[0]),
@@ -711,8 +707,8 @@ var Feyn = function(container, options) {
         id = setId(key);
       // put label texts in <foreignObject> to provide mathjax support
       group += (opts.mathjax ? create('foreignObject', $.extend({}, attr,
-        {'width': size * 0.6, 'height': size, 'requiredExtensions': xhtml}), id,
-        create('body', {'xmlns': xhtml}, {}, item[1])) :
+        {'width': item[2] || size * 0.6, 'height': item[3] || size}), id,
+        create('body', {'xmlns': 'http://www.w3.org/1999/xhtml'}, {}, item[1])) :
         create('text', attr, id, formatStr(item[1])));
     }
     return group ? create('g', setClass('label'), lb.sty, group) : '';
