@@ -1,5 +1,6 @@
 
 @import "style.css";
+@import "gh-fork-ribbon.css";
 
 body, ul, ol, li, dl, dt, dd, img, h2, h3 {
   margin: 0;

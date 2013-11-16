@@ -29,8 +29,8 @@
       photon: {color: 'orange', line: 'v1-v2'},
       gluon: {color: 'green', line: 'v3-v4'},
       symbol: {color: 'olive', s1: ['10,114', -90, 'arrow', 25]},
-      node: {color: 'maroon', show: 'v', radius: 2},
-      label: {color: 'magenta', t1: ['10,194', 'e^{&#8722;}'], t2: ['190,194', 'e^+'],
+      node: {color: 'red', show: 'v', radius: 2},
+      label: {color: 'maroon', t1: ['10,194', 'e^{&#8722;}'], t2: ['190,194', 'e^+'],
         t3: ['10,12', 'q'], t4: ['190,12', '-q'], t5: ['85,102', '&#947;'],
         t6: ['100,10', 'g']},
       image: {m1: ['120,80', 'svg/muon.svg', 65, 34]}
@@ -51,8 +51,8 @@
       fermion: {color: 'blue', arrow: false, line: 'i1-o1,i2-o2'},
       scalar: {color: 'teal', arc: 'v2-v4,v5-v3'},
       symbol: {color: 'olive', s1: ['v1', -90, 'bubble', 50, 20]},
-      node: {color: 'maroon', show: 'a', type: 'otimes', radius: 4},
-      label: {color: 'magenta', t1: ['18,80', 'i1'], t2: ['18,155', 'i2'],
+      node: {color: 'red', show: 'a', type: 'otimes', radius: 4},
+      label: {color: 'maroon', t1: ['18,80', 'i1'], t2: ['18,155', 'i2'],
         t3: ['185,80', 'o1'], t4: ['185,155', 'o2'], t5: ['100,90', 'v1'],
         t6: ['55,164', 'v2'], t7: ['85,142', 'v3'], t8: ['115,164', 'v4'],
         t9: ['145,142', 'v5'], t10: ['100,15', 'a1'], t11: ['85,110', 'a2'],
@@ -77,7 +77,12 @@
 
 <header>
 <div id="index_header">
-<h2>jQuery.Feyn: <span>Drawing Feynman Diagrams with SVG</span></h2>
+  <h2>jQuery.Feyn: <span>Drawing Feynman Diagrams with SVG</span></h2>
+  <div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+      <a href="https://github.com/photino/jquery-feyn">Fork me on GitHub</a>
+    </div>
+  </div>
 </div>
 </header>
 
