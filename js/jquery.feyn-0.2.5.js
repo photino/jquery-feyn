@@ -1,8 +1,8 @@
-/* jQuery.Feyn.js, version 0.2.4, MIT License
+/* jQuery.Feyn.js, version 0.2.5, MIT License
  * plugin for drawing Feynman diagrams with SVG
  *
  * author: Zan Pan <panzan89@gmail.com>
- * date: 2013-11-11
+ * date: 2013-11-25
  *
  * useage: $(container).feyn(options);
 */
@@ -378,29 +378,35 @@ var Feyn = function(container, options) {
 
   // get path for photon propagator
   var photonPath = function(distance, shape) {
-    var a = opts.photon.amplitude,
-      p = opts.photon.period,
+    var lambda = 0.51128733,
+      a = opts.photon.amplitude || 5,
+      b = 0.5 * lambda * a,
+      p = opts.photon.period || 5,
+      q = 2 * p / PI,
+      t = lambda * p / PI,
       dir = opts.photon.clockwise || opts.clockwise,
       /*
-       * the approximation of the first quarter of one period of sine curve
-       * is a cubic Bézier curve with the following control points:
+       * reference: http://mathb.in/1447
        *
-       * (0, 0) (2, PI * a / p) (p - 2, a) (p, a)
+       * the approximation of the first quarter of one period of sine curve
+       * is a cubic Bezier curve with the following control points:
+       *
+       * (0, 0) (lambda * p / PI, lambda * a / 2) (2 * p / PI, a) (p, a)
       */
-      pts = (dir ? [[0, 0], 'C', [2, -PI * a / p], [p - 2, -a], [p, -a],
-        'S', [2 * p - 2, -PI * a / p], [2 * p, 0], 'S', [3 * p - 2, a],
-        [3 * p, a], 'S', [4 * p - 2, PI * a / p]] :
-        [[0, 0], 'C', [2, PI * a / p], [p - 2, a], [p, a],
-        'S', [2 * p - 2, PI * a / p], [2 * p, 0], 'S', [3 * p - 2, -a],
-        [3 * p, -a], 'S', [4 * p - 2, -PI * a / p]]),
-      tile = (dir ? [['C', [2, -PI * a / p], [p - 2, -a], [p, -a],
-        'S', [2 * p - 2, -PI * a / p], [2 * p + 0.5, 0]],
-        ['C', [2, PI * a / p], [p - 2, a], [p, a],
-        'S', [2 * p - 2, PI * a / p], [2 * p - 0.5, 0]]] :
-        [['C', [2, PI * a / p], [p - 2, a], [p, a],
-        'S', [2 * p - 2, PI * a / p], [2 * p - 0.5, 0]],
-        ['C', [2, -PI * a / p], [p - 2, -a], [p, -a],
-        'S', [2 * p - 2, -PI * a / p], [2 * p + 0.5, 0]]]);
+      pts = (dir ? [[0, 0], 'C', [t, -b], [q, -a], [p, -a],
+          'S', [2 * p - t, -b], [2 * p, 0], 'S', [2 * p + q, a], [3 * p, a],
+          'S', [4 * p - t, b]] :
+        [[0, 0], 'C', [t, b], [q, a], [p, a],
+          'S', [2 * p - t, b], [2 * p, 0], 'S', [2 * p + q, -a], [3 * p, -a],
+          'S', [4 * p - t, -b]]),
+      tile = (dir ? [['C', [t, -b], [q, -a], [p, -a],
+          'S', [2 * p - t, -b], [2 * p + 0.5, 0]],
+         ['C', [t, b], [q, a], [p, a],
+          'S', [2 * p - t, -b], [2 * p - 0.5, 0]]] :
+        [['C', [t, b], [q, a], [p, a],
+          'S', [2 * p - t, b], [2 * p - 0.5, 0]],
+         ['C', [t, -b], [q, -a], [p, -a],
+          'S', [2 * p - t, -b], [2 * p + 0.5, 0]]]);
     return {
         line: linePath(pts, 4 * p, distance),
         arc: arcPath('photon', tile, p, distance),
@@ -410,7 +416,7 @@ var Feyn = function(container, options) {
 
   // get path for gluon propagator
   var gluonPath = function(distance, shape) {
-    var kappa = 4 * (Math.SQRT2 - 1) / 3,
+    var kappa = 0.55191502,
       // a and b are one-half of the ellipse's major and minor axes
       a = opts.gluon.height * opts.gluon.factor,
       b = opts.gluon.width * opts.gluon.percent,
@@ -419,27 +425,29 @@ var Feyn = function(container, options) {
       d = opts.gluon.width * (1 - opts.gluon.percent),
       dir = opts.gluon.clockwise || opts.clockwise,
       pts = (dir ? [[0, 0], 'A ' + a + ' ' + b, 0, 0, 1, [a, b], 'A ' +
-        c + ' ' + d, 0, 1, 1, [a - 2 * c, b], 'A ' + a + ' ' + b, 0, 0, 1] :
+          c + ' ' + d, 0, 1, 1, [a - 2 * c, b], 'A ' + a + ' ' + b, 0, 0, 1] :
         [[0, 0], 'A ' + a + ' ' + b, 0, 0, 0, [a, -b], 'A ' + c + ' ' + d,
-        0, 1, 0, [a - 2 * c, -b], 'A ' + a + ' ' + b, 0, 0, 0]);
+          0, 1, 0, [a - 2 * c, -b], 'A ' + a + ' ' + b, 0, 0, 0]);
     a = (dir ? a : opts.gluon.scale * a);
     var lift = a / Math.pow(distance, 0.6),
       /*
+       * reference: http://spencermortensen.com/articles/bezier-circle/
+       *
        * the approximation of the first quarter of the ellipse
-       * is a cubic Bézier curve with the following control points:
+       * is a cubic Bezier curve with the following control points:
        *
        * (0, b) (kappa * a, b) (a, kappa * b) (a, 0)
        * 
        * a lift is used to remove mitered join of two tiles
       */
       tile = (dir ? ['C', [kappa * a, lift], [a, b - kappa * b], [a, b],
-        'C', [a, b + kappa * d], [a - c + kappa * c, b + d], [a - c, b + d],
-        'S', [a - 2 * c, b + kappa * d], [a - 2 * c, b], 'C', [a - 2 * c,
-        b - kappa * b], [2 * (a - c) - kappa * a, 0], [2 * (a - c), -lift]] :
-        ['C', [kappa * a, lift], [a, -b + kappa * b], [a, -b], 'C', [a,
-        -b - kappa * d], [a - c + kappa * c, -b - d], [a - c, -b - d],
-        'S', [a - 2 * c, -b - kappa * d], [a - 2 * c, -b], 'C', [a - 2 * c,
-        -b + kappa * b], [2 * (a - c) - kappa * a, 0], [2 * (a - c), -lift]]);
+         'C', [a, b + kappa * d], [a - c + kappa * c, b + d], [a - c, b + d],
+         'S', [a - 2 * c, b + kappa * d], [a - 2 * c, b], 'C', [a - 2 * c,
+          b - kappa * b], [2 * (a - c) - kappa * a, 0], [2 * (a - c), -lift]] :
+        ['C', [kappa * a, lift], [a, -b + kappa * b], [a, -b], 
+         'C', [a, -b - kappa * d], [a - c + kappa * c, -b - d], [a - c, -b - d],
+         'S', [a - 2 * c, -b - kappa * d], [a - 2 * c, -b], 'C', [a - 2 * c,
+          -b + kappa * b], [2 * (a - c) - kappa * a, 0], [2 * (a - c), -lift]]);
     return {
         line: linePath(pts, opts.gluon.height, distance),
         arc: arcPath('gluon', tile, a - c, distance),
@@ -793,7 +801,7 @@ var Feyn = function(container, options) {
     if(opts.standalone) {
       var code = '<?xml version="1.0" encoding="UTF-8"?>\n' +
         '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"' +
-        ' "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n'+ src;
+        ' "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n' + src;
       src = '<div class="feyn" style="display:inline-block;">' + src +
         '</div><textarea cols="80" style="margin-left:5px;padding:3px;' +
         'height:' + (opts.height - 8) + 'px;" spellcheck="false">' +
