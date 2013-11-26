@@ -1,8 +1,10 @@
-/* jQuery.Feyn.js, version 0.2.5, MIT License
+/* jQuery.Feyn.js, version 1.0.0, MIT License
  * plugin for drawing Feynman diagrams with SVG
  *
+ * https://github.com/photino/jquery-feyn
+ *
  * author: Zan Pan <panzan89@gmail.com>
- * date: 2013-11-25
+ * date: 2013-11-27
  *
  * useage: $(container).feyn(options);
 */
@@ -424,7 +426,7 @@ var Feyn = function(container, options) {
       c = opts.gluon.height * (opts.gluon.factor - 0.5),
       d = opts.gluon.width * (1 - opts.gluon.percent),
       dir = opts.gluon.clockwise || opts.clockwise,
-      pts = (dir ? [[0, 0], 'A ' + a + ' ' + b, 0, 0, 1, [a, b], 'A ' +
+    pts = (dir ? [[0, 0], 'A ' + a + ' ' + b, 0, 0, 1, [a, b], 'A ' +
           c + ' ' + d, 0, 1, 1, [a - 2 * c, b], 'A ' + a + ' ' + b, 0, 0, 1] :
         [[0, 0], 'A ' + a + ' ' + b, 0, 0, 0, [a, -b], 'A ' + c + ' ' + d,
           0, 1, 0, [a - 2 * c, -b], 'A ' + a + ' ' + b, 0, 0, 0]);
