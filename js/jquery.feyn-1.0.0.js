@@ -6,7 +6,7 @@
  * author: Zan Pan <panzan89@gmail.com>
  * date: 2013-11-27
  *
- * useage: $(container).feyn(options);
+ * usage: $(container).feyn(options);
 */
 
 ;(function($) {
