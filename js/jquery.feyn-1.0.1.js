@@ -1,10 +1,10 @@
-/* jQuery.Feyn.js, version 1.0.0, MIT License
+/* jQuery.Feyn.js, version 1.0.1, MIT License
  * plugin for drawing Feynman diagrams with SVG
  *
  * https://github.com/photino/jquery-feyn
  *
  * author: Zan Pan <panzan89@gmail.com>
- * date: 2013-11-27
+ * date: 2014-2-28
  *
  * usage: $(container).feyn(options);
 */

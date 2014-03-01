@@ -8,9 +8,9 @@
 <meta name="description" content="An extension package allows you to draw Feynman diagrams with SVG using the standard jQuery syntax."/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0.25,user-scalable=yes"/>
 <link rel="icon" type="image/png" href="favicon.png"/>
-<script src="js/jquery-2.0.2.min.js"></script>
-<script src="js/jquery.feyn-1.0.0.min.js"></script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="js/jquery-2.1.0.min.js"></script>
+<script src="js/jquery.feyn-1.0.1.min.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"></script>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     jax: ['input/TeX','output/HTML-CSS'],
@@ -33,7 +33,7 @@
       node: {show: 'v', type: 'dot', fill: 'black', radius: 2},
       label: {t1: ['15,110', '$c,\\rho$', 30], t2: ['140,110', '$d,\\sigma$', 30],
         t3: ['15,10', '$b,\\nu$', 30], t4: ['140,10', '$a,\\mu$', 30],
-        t5: ['190,15', '\\[\\begin{split}=-ig^2\\big[&\\!f^{abe}f^{cde}(\\eta^{\\mu\\rho}\\eta^{\\nu\\sigma}-\\eta^{\\mu\\sigma}\\eta^{\\nu\\rho})\\\\+&\\!f^{ace}f^{bde}(\\eta^{\\mu\\nu}\\eta^{\\rho\\sigma}-\\eta^{\\mu\\sigma}\\eta^{\\nu\\rho})\\\\+&\\!f^{ade}f^{bce}(\\eta^{\\mu\\nu}\\eta^{\\rho\\sigma}-\\eta^{\\mu\\rho}\\eta^{\\nu\\sigma})\\big]\\end{split}\\]', 290, 100]},
+        t5: ['190,15', '$=-ig^2\\big[\\!f^{abe}f^{cde}(\\eta^{\\mu\\rho}\\eta^{\\nu\\sigma}-\\eta^{\\mu\\sigma}\\eta^{\\nu\\rho})\\\\\\qquad+f^{ace}f^{bde}(\\eta^{\\mu\\nu}\\eta^{\\rho\\sigma}-\\eta^{\\mu\\sigma}\\eta^{\\nu\\rho})\\\\\\qquad+f^{ade}f^{bce}(\\eta^{\\mu\\nu}\\eta^{\\rho\\sigma}-\\eta^{\\mu\\rho}\\eta^{\\nu\\sigma})\\big]$', 290, 100]},
       mathjax: true
     });
   });
