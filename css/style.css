@@ -16,6 +16,7 @@ a:hover {
 }
 
 .center {
+  margin: 0 auto;
   text-align: center;
 }
 

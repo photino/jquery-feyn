@@ -68,17 +68,29 @@
     });
     $('.feyn').css('cursor', 'crosshair').click(function(e) {
       var offset = $(this).offset(),
-        x = Math.round(e.pageX - offset.left),
-        y = Math.round(e.pageY - offset.top);
+        factor = $(this).width() / 200,
+        x = Math.round((e.pageX - offset.left) / factor),
+        y = Math.round((e.pageY - offset.top) / factor);
       $('svg .feyn_coord').remove();
       $(this).children('svg').append('<text class="feyn_coord" x="' + x +
         '" y="' + y + '" font-size="10">' + x  + ',' + y + '</text>');
       $(this).html($(this).html());
       return false;
     });
-    $('textarea').css({'width': '66%', 'font-size': '80%'});
+    $('textarea').css({'width': '48em', 'height': '16.2em'});
   });
 </script>
+<style type="text/css">
+  article section {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 80%;
+  }
+  svg {
+    width: 16.6666em;
+    height: 16.6666em;
+  }
+</style>
 </head>
 
 <body>
@@ -88,7 +100,7 @@
 
 <article>
 <h3>Online Demo</h3>
-<section style="margin:1em auto;text-align:center;">
+<section>
   <div id="aurora"><!-- Insert Feynman diagram here --></div>
   <div id="nightly"><!-- Insert Feynman diagram here --></div>
 </section>

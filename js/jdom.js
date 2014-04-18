@@ -19,8 +19,15 @@ $('head').append('<meta name="viewport" content="width=device-width,' +
 
 $(document).ready(function() {
   var width = $(window).width(),
-    font = Math.floor(width / 200) + 5;
+    font = 10 * width / 1024;
   $('body').css('font-size', font.toString() + 'px');
+
+  $('[data-width]').each(function() {
+    $(this).css({
+      'width': $(this).data('width') + 'em',
+      'height': $(this).data('height') + 'em'
+    });
+  });
 
   if(html != 'index') {
     $('header').load(path + 'index.html #index_header', function() {

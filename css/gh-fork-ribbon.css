@@ -30,7 +30,7 @@
 .github-fork-ribbon a:hover {
   /* Set the font */
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  
   font-weight: 700;
   color: white;
 
@@ -40,8 +40,8 @@
   text-align: center;
 
   /* Set the geometry. If you fiddle with these you'll also need to tweak the top and right values in #github-fork-ribbon. */
-  width: 200px;
-  line-height: 20px;
+  width: 15.3846em;
+  line-height: 1.5385em;
 
   /* Set the layout properties */
   display: inline-block;
@@ -54,8 +54,8 @@
 }
 
 .github-fork-ribbon-wrapper {
-  width: 150px;
-  height: 150px;
+  width: 11.5385em;
+  height: 11.5385em;
   position: absolute;
   overflow: hidden;
   top: 0;
@@ -90,8 +90,8 @@
 }
 
 .github-fork-ribbon-wrapper.right .github-fork-ribbon {
-  top: 42px;
-  right: -43px;
+  top: 3.23077em;
+  right: -3.30769em;
 
   /* Rotate the banner 45 degrees */
   -webkit-transform: rotate(45deg);
@@ -101,8 +101,8 @@
 }
 
 .github-fork-ribbon-wrapper.left .github-fork-ribbon {
-  top: 42px;
-  left: -43px;
+  top: 3.23077em;
+  right: -3.30769em;
 
   /* Rotate the banner -45 degrees */
   -webkit-transform: rotate(-45deg);
@@ -113,8 +113,8 @@
 
 
 .github-fork-ribbon-wrapper.left-bottom .github-fork-ribbon {
-  top: 80px;
-  left: -43px;
+  top: 6.15385em;
+  left: -3.30769em;
 
   /* Rotate the banner -45 degrees */
   -webkit-transform: rotate(45deg);
@@ -124,8 +124,8 @@
 }
 
 .github-fork-ribbon-wrapper.right-bottom .github-fork-ribbon {
-  top: 80px;
-  right: -43px;
+  top: 6.15385em;
+  right: -3.30769em;
 
   /* Rotate the banner -45 degrees */
   -webkit-transform: rotate(-45deg);
